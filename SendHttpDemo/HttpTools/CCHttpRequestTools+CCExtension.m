@@ -54,11 +54,17 @@
     //失败回调
     void (^failResultBlock)(NSError *) = ^(NSError *error){
         
+        //隐藏弹框
+        if (requestModel.loadView) {
+            [MBProgressHUD hideLoadingFromView:requestModel.loadView];
+        }
+        
         //判断Token状态是否为失效
         if (error.code == [kLoginFail integerValue]) {
             //通知页面需要重新登录
             [[NSNotificationCenter defaultCenter] postNotificationName:kTokenExpiry object:nil];
             return ;
+            
         } else {
             if (failureBlock) {
                 failureBlock(error);
@@ -69,11 +75,6 @@
         UITableView *tableView = requestModel.dataTableView;
         if (tableView && [tableView isKindOfClass:[UITableView class]]) {
             [tableView showRequestTip:error];
-        }
-        
-        //隐藏弹框
-        if (requestModel.loadView) {
-            [MBProgressHUD hideLoadingFromView:requestModel.loadView];
         }
         
         //如果需要提示错误信息

@@ -13,7 +13,6 @@
 		B5EC7E1B1E0BD01300ABA5D1 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E1A1E0BD01300ABA5D1 /* FirstViewController.m */; };
 		B5EC7E1E1E0BD01300ABA5D1 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E1D1E0BD01300ABA5D1 /* SecondViewController.m */; };
 		B5EC7E231E0BD01300ABA5D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E221E0BD01300ABA5D1 /* Assets.xcassets */; };
-		B5EC7E261E0BD01300ABA5D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E241E0BD01300ABA5D1 /* LaunchScreen.storyboard */; };
 		B5EC7E411E0BD05F00ABA5D1 /* CCParkingRequestTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E2F1E0BD05F00ABA5D1 /* CCParkingRequestTipView.m */; };
 		B5EC7E421E0BD05F00ABA5D1 /* UIButton+CCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E311E0BD05F00ABA5D1 /* UIButton+CCExtension.m */; };
 		B5EC7E431E0BD05F00ABA5D1 /* UITableView+CCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E331E0BD05F00ABA5D1 /* UITableView+CCExtension.m */; };
@@ -27,7 +26,8 @@
 		B5EC7E511E0BD08F00ABA5D1 /* CCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E4C1E0BD08F00ABA5D1 /* CCBaseViewController.m */; };
 		B5EC7E521E0BD08F00ABA5D1 /* DemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E4E1E0BD08F00ABA5D1 /* DemoVC.m */; };
 		B5EC7E531E0BD08F00ABA5D1 /* DemoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E4F1E0BD08F00ABA5D1 /* DemoVC.xib */; };
-		B5EC7E551E0BD0C900ABA5D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E541E0BD0C900ABA5D1 /* Main.storyboard */; };
+		B5EC7E561E0BE50800ABA5D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E241E0BD01300ABA5D1 /* LaunchScreen.storyboard */; };
+		B5EC7E571E0BE51100ABA5D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E541E0BD0C900ABA5D1 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -221,7 +221,7 @@
 				TargetAttributes = {
 					B5EC7E0F1E0BD01300ABA5D1 = {
 						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -248,10 +248,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5EC7E261E0BD01300ABA5D1 /* LaunchScreen.storyboard in Resources */,
+				B5EC7E571E0BE51100ABA5D1 /* Main.storyboard in Resources */,
+				B5EC7E561E0BE50800ABA5D1 /* LaunchScreen.storyboard in Resources */,
 				B5EC7E531E0BD08F00ABA5D1 /* DemoVC.xib in Resources */,
 				B5EC7E231E0BD01300ABA5D1 /* Assets.xcassets in Resources */,
-				B5EC7E551E0BD0C900ABA5D1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,10 +438,12 @@
 			baseConfigurationReference = CC84C2ED474B490C0B071F4E /* Pods-SendHttpDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SendHttpDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jhsys.cloudcity.SendHttpDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.study.SendHttpDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -450,10 +452,12 @@
 			baseConfigurationReference = 7B9F34F8C5A2EE140D9BB4BD /* Pods-SendHttpDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = SendHttpDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jhsys.cloudcity.SendHttpDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.study.SendHttpDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

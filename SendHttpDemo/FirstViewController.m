@@ -43,12 +43,12 @@
 - (IBAction)sendHttpRequest:(id)sender
 {
     //测试同时发送50个请求, 底层会自动管理
-    for (int i=0; i<50; i++) {
+    for (int i=0; i<2; i++) {
         [self sendMultifunctionReq:i];
     }
     
     //测试发送普通请求
-//    [self sendCommomReq];
+    //[self sendCommomReq];
 }
 
 /**
