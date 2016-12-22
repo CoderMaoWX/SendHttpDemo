@@ -9,7 +9,6 @@
 #import "CCHttpRequestModel+CCExtension.h"
 #import <objc/runtime.h>
 
-static char const * const kSessionDataTaskArrKey    = "kSessionDataTaskArrKey";
 static char const * const kLoadViewKey              = "kLoadViewKey";
 static char const * const kDataTableViewKey         = "kDataTableViewKey";
 static char const * const kForbidTipErrorInfoKey    = "kForbidTipErrorInfoKey";
@@ -57,7 +56,10 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 }
 
 #pragma mark - ========== 请求缓存策略 ==========
-
+/**
+ * 如果请求时缓存了网络数据,则下次相同的请求地址时,
+ * 则会优先返回缓存数据,同时请求最新的数据再返回
+ */
 - (void)setRequestCachePolicy:(CCRequestCachePolicy)requestCachePolicy
 {
     objc_setAssociatedObject(self, kRequestCachePolicyKey, @(requestCachePolicy), OBJC_ASSOCIATION_ASSIGN);

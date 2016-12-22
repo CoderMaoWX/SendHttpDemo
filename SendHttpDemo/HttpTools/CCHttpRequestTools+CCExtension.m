@@ -135,6 +135,7 @@
         NSString *cachekey = [self getCacheKeyByRequestUrl:requestModel.requestUrl parameter:requestModel.parameters];
         NSDictionary *cacheDic = [CCFMDBTool getObjectById:cachekey fromTable:JsonDataTableType];
         if (cacheDic) {
+            NSLog(@"请求参数= %@\n请求地址= %@\n缓存数据成功返回= %@",requestModel.parameters,requestModel.requestUrl,cacheDic);
             succResultBlock(cacheDic,YES);
         }
     }

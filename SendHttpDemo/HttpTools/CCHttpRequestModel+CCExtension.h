@@ -9,6 +9,7 @@
 #import "CCHttpRequestModel.h"
 #import <UIKit/UIKit.h>
 
+//如果请求时缓存了网络数据,则下次相同的请求地址,则会优先返回缓存数据,同时请求最新的数据再返回
 typedef enum : NSUInteger {
     RequestIgnoreCacheData, //忽略网络数据
     RequestStoreCacheData,  //缓存网络数据

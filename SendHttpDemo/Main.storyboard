@@ -36,14 +36,14 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pna-Gr-VUf">
                                 <rect key="frame" x="141.5" y="218.5" width="92" height="30"/>
-                                <state key="normal" title="请求列表数据"/>
+                                <state key="normal" title="发送不同请求"/>
                                 <connections>
                                     <action selector="sendHttpRequest:" destination="9pv-A4-QxB" eventType="touchUpInside" id="C1q-qY-FS0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp3-BW-mGi">
-                                <rect key="frame" x="126" y="138.5" width="123" height="30"/>
-                                <state key="normal" title="同时发送多个请求"/>
+                                <rect key="frame" x="142" y="138.5" width="92" height="30"/>
+                                <state key="normal" title="请求列表数据"/>
                                 <connections>
                                     <action selector="sendHttpAction:" destination="9pv-A4-QxB" eventType="touchUpInside" id="eLW-eE-IFR"/>
                                 </connections>
@@ -65,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688.8" y="-320.68965517241384"/>
+            <point key="canvasLocation" x="1666" y="-321"/>
         </scene>
         <!--我的-->
         <scene sceneID="wg7-f3-ORb">

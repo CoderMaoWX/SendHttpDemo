@@ -28,9 +28,8 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-
-- (IBAction)sendHttpAction:(id)sender {
-    
+- (IBAction)sendHttpAction:(id)sender
+{
     DemoVC *demoVC = [[DemoVC alloc] init];
     demoVC.title = @"测试表格分页请求";
     demoVC.hidesBottomBarWhenPushed = YES;
@@ -38,18 +37,18 @@
     [self.navigationController pushViewController:demoVC animated:YES];
 }
 
-
 /**
- 测试:同时发送100个请求
+ 测试发送不同请求
  */
 - (IBAction)sendHttpRequest:(id)sender
 {
+    //测试同时发送50个请求, 底层会自动管理
     for (int i=0; i<50; i++) {
         [self sendMultifunctionReq:i];
     }
     
     //测试发送普通请求
-    //[self sendCommomReq];
+//    [self sendCommomReq];
 }
 
 /**
@@ -63,20 +62,22 @@
     model.requestUrl = TestRequestUrl;
     
     model.loadView = self.view;
-    //    model.dataTableView = self.tableView;
+    //model.dataTableView = self.tableView;//如果页面有表格可传入会自动处理很多事件
     model.sessionDataTaskArr = self.sessionDataTaskArr; //传入,则自动管理取消请求的操作
     model.requestCachePolicy = RequestStoreCacheData; //需要保存底层网络数据
     
     NSLog(@"发送请求中====%zd",tag);
     [CCHttpRequestTools sendMultifunctionCCRequest:model success:^(id returnValue) {
         NSLog(@"不错哦, 请求成功了");
+        [MBProgressHUD showToastViewOnView:self.view text:@"请求成功,请查看打印日志"];
         
     } failure:^(NSError *error) {
         NSLog(@"悲剧哦, 请求失败了");
+        [MBProgressHUD showToastViewOnView:self.view text:@" 悲剧哦, 请求失败了"];
     }];
     
     if (tag == 49) {
-        NSLog(@"取消所有请求====19");
+        NSLog(@"取消所有请求后, 底层不会回调成功或失败到页面上来");
         [self cancelRequestOperations];
     }
 }

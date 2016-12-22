@@ -48,7 +48,7 @@ static AFHTTPSessionManager *mgr_;
 
     //失败回调
     void (^failResultBlock)(NSError *) = ^(NSError *error){
-        NSLog(@"请求参数= %@\n请求地址= %@\n失败返回= %@",requestModel.parameters,requestModel.requestUrl,error);
+        NSLog(@"请求参数= %@\n请求地址= %@\n网络数据失败返回= %@",requestModel.parameters,requestModel.requestUrl,error);
         
         if (failureBlock) {
             failureBlock(error);
@@ -64,7 +64,7 @@ static AFHTTPSessionManager *mgr_;
         NSInteger code = [responseObject[kRequestCodeKey] integerValue];
         if (code == 0 || code == 200)
         {
-            NSLog(@"请求参数= %@\n请求地址= %@\n成功返回= %@",requestModel.parameters,requestModel.requestUrl,responseObject);
+            NSLog(@"请求参数= %@\n请求地址= %@\n网络数据成功返回= %@",requestModel.parameters,requestModel.requestUrl,responseObject);
             
             /** <1>.回调页面请求 */
             if (successBlock) {
