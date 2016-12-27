@@ -11,25 +11,28 @@
 
 #define WEAKSELF(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
-#define TestRequestUrl        @"http://lib.wap.zol.com.cn/ipj/docList/?v=11.0&class_id=0&isReviewing=NO&last_time=2016-12-21%2021%3A55&page=1&retina=1&vs=iph501"
+#define TestRequestUrl      @"http://lib3.wap.zol.com.cn/index.php?c=Advanced_List_V1&keyword=808.8GB%205400%E8%BD%AC%2032MB&noParam=1&priceId=noPrice&num=15"
 
 @interface DemoVC ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, assign) NSInteger pageNum;
+@property (nonatomic, strong) NSDictionary *params;
 @end
 
 @implementation DemoVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"请求数据" style:UIBarButtonItemStylePlain target:self action:@selector(navBarItemAction)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新数据" style:UIBarButtonItemStylePlain target:self action:@selector(navBarItemAction)];
     
+    self.tableView.rowHeight = 60;
     self.tableView.tableFooterView = [[UIView alloc] init];
     
     WEAKSELF(weakSelf)
     [self.tableView addheaderRefresh:^{
-        [weakSelf requestData:0];
+        [weakSelf requestData:YES];
     } footerBlock:^{
-         [weakSelf requestData:1];
+         [weakSelf requestData:NO];
     }];
 }
 
@@ -54,18 +57,28 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     NSDictionary *dic = self.tableDataArr[indexPath.row];
-    cell.textLabel.text = dic[@"stitle"];
+    cell.textLabel.text = dic[@"name"];
+    cell.textLabel.numberOfLines = 0;
     return cell;
 }
 
 /**
  * 发送请求
  */
-- (void)requestData:(int)tag
+- (void)requestData:(BOOL)firstPage
 {
+    if (firstPage) {
+        self.pageNum = 1;
+    } else {
+        self.pageNum ++;
+    }
+    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+    info[@"page"] = @(self.pageNum);
+    self.params = info;
+    
     CCHttpRequestModel *model = [[CCHttpRequestModel alloc] init];
     model.requestType = HttpRequestTypeGET;
-    model.parameters = nil;
+    model.parameters = info;
     model.requestUrl = TestRequestUrl; //可以试着把地址写错,测试请求失败的场景
     
     model.loadView = self.view;
@@ -73,13 +86,18 @@
     model.sessionDataTaskArr = self.sessionDataTaskArr;
     model.requestCachePolicy = RequestStoreCacheData;
     
-    NSLog(@"发送请求中====%zd",tag);
+    NSLog(@"发送请求中====%zd",self.pageNum);
     [CCHttpRequestTools sendMultifunctionCCRequest:model success:^(id returnValue) {
-        if (tag == 0) [self.tableDataArr removeAllObjects];
+        if (self.params != info) return;
+        if (firstPage) {
+            [self.tableDataArr removeAllObjects];
+        }
         
-        [self.tableDataArr addObjectsFromArray:returnValue[@"list"]];
+        [self.tableDataArr addObjectsFromArray:returnValue[@"data"]];
         [self.tableView reloadData];
-    } failure:nil];
+    } failure:^(NSError *error) {
+        if (!firstPage) self.pageNum --;
+    }];
 }
 
 - (void)dealloc

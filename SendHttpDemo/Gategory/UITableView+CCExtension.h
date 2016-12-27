@@ -48,9 +48,9 @@ typedef enum : NSUInteger {
 /**
  调用此方法,会自动处理表格上下拉刷新,分页,添加空白页等操作
 
- @param reqData 网络请求回调数据
+ @param responseData 网络请求回调数据
  */
-- (void)showRequestTip:(id)reqData;
+- (void)showRequestTip:(id)responseData;
 
 @end
 

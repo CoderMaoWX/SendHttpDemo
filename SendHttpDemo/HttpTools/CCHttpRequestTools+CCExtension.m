@@ -55,7 +55,7 @@
     void (^failResultBlock)(NSError *) = ^(NSError *error){
         
         //隐藏弹框
-        if (requestModel.loadView) {
+        if (requestModel.loadView && !requestModel.dataTableView) {
             [MBProgressHUD hideLoadingFromView:requestModel.loadView];
         }
         
@@ -78,7 +78,7 @@
         }
         
         //如果需要提示错误信息
-        if (!requestModel.forbidTipErrorInfo) {
+        if (!requestModel.forbidTipErrorInfo && !tableView) {
             UIView *tipView = requestModel.loadView ? : [UIApplication sharedApplication].keyWindow;
             
             //错误码在200-500内才提示服务端错误信息
@@ -96,7 +96,7 @@
         //判断是否未缓存数据
         requestModel.isCacheData = isCacheData;
         
-        if (requestModel.loadView) { //防止页面上有其他弹框
+        if (requestModel.loadView && !requestModel.dataTableView) { //防止页面上有其他弹框
             [MBProgressHUD hideLoadingFromView:requestModel.loadView];
         }
         
@@ -150,7 +150,7 @@
     }
     
     //是否显示请求转圈
-    if (requestModel.loadView) {
+    if (requestModel.loadView && !requestModel.dataTableView) {
         [requestModel.loadView endEditing:YES];
         [MBProgressHUD showLoadingWithView:requestModel.loadView text:RequestLoadingTip];
     }
@@ -172,7 +172,7 @@
         } else { //code == -999
             NSLog(@"页面已主动触发取消请求,此次请求不回调到页面");
             
-            if (requestModel.loadView) { //隐藏弹框
+            if (requestModel.loadView && !requestModel.dataTableView) { //隐藏弹框
                 [MBProgressHUD hideLoadingFromView:requestModel.loadView];
             }
         }

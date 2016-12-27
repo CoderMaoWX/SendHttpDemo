@@ -106,9 +106,9 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 /**
  调用此方法,会自动处理表格上下拉刷新,分页,添加空白页等操作
  
- @param reqData 网络请求回调数据
+ @param responseData 网络请求回调数据
  */
-- (void)showRequestTip:(id)reqData
+- (void)showRequestTip:(id)responseData
 {
     //请求回调后收起上下拉控件
     if (self.mj_header) {
@@ -120,7 +120,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     }
     
     //如果请求成功处理
-    if ([reqData isKindOfClass:[NSDictionary class]]) {
+    if ([responseData isKindOfClass:[NSDictionary class]]) {
         
         //页面没有数据
         if (self.numberOfSections == 0 || (self.numberOfSections == 1 && [self numberOfRowsInSection:0] == 0)) {
@@ -150,23 +150,36 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
             //控制上啦控件的显示
             if (!self.mj_footer) return;
             
-            if (reqData[@"totalPage"]) {
-                NSInteger totalPage = [reqData[@"totalPage"] integerValue];
-                NSInteger currentPage = [reqData[@"currentPage"] integerValue];
-                
-                if (totalPage > currentPage) {
+            NSArray *listArr = responseData[@"data"];
+            if ([listArr isKindOfClass:[NSArray class]]) {
+                if (listArr.count>0) {
                     self.mj_footer.hidden = NO;
                 } else {
                     [self.mj_footer endRefreshingWithNoMoreData];
-                    self.mj_footer.hidden = YES;
+                    //self.mj_footer.hidden = YES;
                 }
+                
             } else {
                 self.mj_footer.hidden = NO;
             }
+            
+//            if (responseData[@"totalPage"]) {
+//                NSInteger totalPage = [responseData[@"totalPage"] integerValue];
+//                NSInteger currentPage = [responseData[@"currentPage"] integerValue];
+//                
+//                if (totalPage > currentPage) {
+//                    self.mj_footer.hidden = NO;
+//                } else {
+//                    [self.mj_footer endRefreshingWithNoMoreData];
+//                    self.mj_footer.hidden = YES;
+//                }
+//            } else {
+//                self.mj_footer.hidden = NO;
+//            }
         }
         
-    } else if([reqData isKindOfClass:[NSError class]]){ //请求失败处理
-        NSError *error = (NSError *)reqData;
+    } else if([responseData isKindOfClass:[NSError class]]){ //请求失败处理
+        NSError *error = (NSError *)responseData;
         
         //页面没有数据
         if (self.numberOfSections == 0 || (self.numberOfSections == 1 && [self numberOfRowsInSection:0] == 0)) {
