@@ -7,24 +7,26 @@
 //
 
 #import "CCHttpRequestTools.h"
+#import <objc/runtime.h>
 #import <AFNetworking.h>
+
+static char const * const kRequestUrlKey    = "kRequestUrlKey";
 
 @implementation CCHttpRequestTools
 
-
-static AFHTTPSessionManager *mgr_;
-
 /**
- *  常见创建请求管理者
+ *  创建请求管理者
  */
-+ (void)initialize
++ (AFHTTPSessionManager *)afManager
 {
-    mgr_ = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *mgr_ = [AFHTTPSessionManager manager];
     mgr_.responseSerializer = [AFJSONResponseSerializer serializer];
     mgr_.requestSerializer = [AFJSONRequestSerializer serializer];
     mgr_.requestSerializer.timeoutInterval = 60;//默认超时时间
     mgr_.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",nil];
+    return mgr_;
 }
+
 
 #pragma mark - 包装请求入口
 
@@ -88,6 +90,7 @@ static AFHTTPSessionManager *mgr_;
     }
     
     //设置请求超时时间
+    AFHTTPSessionManager *mgr_ = [self afManager];
     mgr_.requestSerializer.timeoutInterval = requestModel.timeOut ? : 60;
 
     NSURLSessionDataTask *sessionDataTask = nil;
@@ -153,6 +156,8 @@ static AFHTTPSessionManager *mgr_;
     
     //添加请求操作对象
     if (sessionDataTask) {
+        //给sessionDataTask关联一个请求key
+        objc_setAssociatedObject(sessionDataTask, kRequestUrlKey, requestModel.requestUrl, OBJC_ASSOCIATION_COPY_NONATOMIC);
         [requestModel.sessionDataTaskArr addObject:sessionDataTask];
     }
     
@@ -168,7 +173,7 @@ static AFHTTPSessionManager *mgr_;
     NSString *requestUrl = requestModel.requestUrl;
     for (NSURLSessionDataTask *sessionDataTask in requestModel.sessionDataTaskArr) {
         
-        NSString *oldReqUrl = [sessionDataTask.currentRequest.URL description];
+        NSString *oldReqUrl = objc_getAssociatedObject(sessionDataTask, kRequestUrlKey);
         if ([oldReqUrl isEqualToString:requestUrl]) {
             
             if (sessionDataTask.state != NSURLSessionTaskStateCompleted) {
@@ -189,7 +194,7 @@ static AFHTTPSessionManager *mgr_;
     NSArray *allTaskArr = requestModel.sessionDataTaskArr.copy;
     for (NSURLSessionDataTask *sessionDataTask in allTaskArr) {
         
-        NSString *oldReqUrl = [sessionDataTask.currentRequest.URL description];
+        NSString *oldReqUrl = objc_getAssociatedObject(sessionDataTask, kRequestUrlKey);
         if ([oldReqUrl isEqualToString:requestUrl]) {
             
             if (sessionDataTask.state == NSURLSessionTaskStateCompleted) {
