@@ -10,9 +10,19 @@
 #import <objc/runtime.h>
 #import <AFNetworking.h>
 
+static NSMutableArray *globalReqManagerArr_;
 static char const * const kRequestUrlKey    = "kRequestUrlKey";
 
 @implementation CCHttpRequestTools
+
+/**
+ *  创建请全局求管理者
+ */
++ (void)initialize
+{
+    //维护一个全局请求管理数组,可方便在推出登录,内存警告时清除所有请求
+    globalReqManagerArr_ = [NSMutableArray array];
+}
 
 /**
  *  创建请求管理者
@@ -158,31 +168,33 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     if (sessionDataTask) {
         //给sessionDataTask关联一个请求key
         objc_setAssociatedObject(sessionDataTask, kRequestUrlKey, requestModel.requestUrl, OBJC_ASSOCIATION_COPY_NONATOMIC);
-        [requestModel.sessionDataTaskArr addObject:sessionDataTask];
+        
+        if (requestModel.sessionDataTaskArr) {
+            [requestModel.sessionDataTaskArr addObject:sessionDataTask];
+        } else {
+            [globalReqManagerArr_ addObject:sessionDataTask];
+        }
     }
     
     return sessionDataTask;
 }
 
+#pragma mark - 相同请求逻辑判断
 
 /**
- * 判断是否有相同的url正在请求
+ * 判断当前是否有相同的url正在请求
  */
 + (BOOL)isCurrentSessionDataTaskRunning:(CCHttpRequestModel *)requestModel
 {
     NSString *requestUrl = requestModel.requestUrl;
-    for (NSURLSessionDataTask *sessionDataTask in requestModel.sessionDataTaskArr) {
+    if (requestModel.sessionDataTaskArr) {
+        //页面上传进来的请求数组
+        return [self judgeCurrentRequesting:requestUrl judgeArr:requestModel.sessionDataTaskArr];
         
-        NSString *oldReqUrl = objc_getAssociatedObject(sessionDataTask, kRequestUrlKey);
-        if ([oldReqUrl isEqualToString:requestUrl]) {
-            
-            if (sessionDataTask.state != NSURLSessionTaskStateCompleted) {
-                NSLog(@"有相同url正在请求, 取消此次请求===%@",requestModel.requestUrl);
-                return YES;
-            }
-        }
+    } else {
+        //全局请求数组
+        return [self judgeCurrentRequesting:requestUrl judgeArr:globalReqManagerArr_];
     }
-    return NO;
 }
 
 /**
@@ -191,18 +203,55 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 + (void)removeCompletedTaskSession:(CCHttpRequestModel *)requestModel
 {
     NSString *requestUrl = requestModel.requestUrl;
-    NSArray *allTaskArr = requestModel.sessionDataTaskArr.copy;
+    if (requestModel.sessionDataTaskArr) {
+        //移除页面上传进来的管理数组
+        [self removeTaskFromArr:requestModel.sessionDataTaskArr requestUrl:requestUrl];
+        
+    } else {
+        //移除全局请求数组
+        [self removeTaskFromArr:globalReqManagerArr_ requestUrl:requestUrl];
+    }
+}
+
+#pragma mark - 处理操作请求数组
+
+/**
+ * 根据数组移除已完成的请求
+ */
++ (void)removeTaskFromArr:(NSMutableArray *)reqArr requestUrl:(NSString *)requestUrl
+{
+    NSArray *allTaskArr = reqArr.copy;
+    
     for (NSURLSessionDataTask *sessionDataTask in allTaskArr) {
         
         NSString *oldReqUrl = objc_getAssociatedObject(sessionDataTask, kRequestUrlKey);
         if ([oldReqUrl isEqualToString:requestUrl]) {
             
             if (sessionDataTask.state == NSURLSessionTaskStateCompleted) {
-                [requestModel.sessionDataTaskArr removeObject:sessionDataTask];
-                NSLog(@"移除当前完成了的请求NSURLSessionDataTask===%@",requestModel.requestUrl);
+                [reqArr removeObject:sessionDataTask];
+                NSLog(@"移除管理数组中完成了的请求===%@",reqArr);
             }
         }
     }
+}
+
+/**
+ * 根据数组判断是否有相同请求
+ */
++ (BOOL)judgeCurrentRequesting:(NSString *)requestUrl judgeArr:(NSMutableArray *)reqArr
+{
+    for (NSURLSessionDataTask *sessionDataTask in reqArr) {
+        
+        NSString *oldReqUrl = objc_getAssociatedObject(sessionDataTask, kRequestUrlKey);
+        if ([oldReqUrl isEqualToString:requestUrl]) {
+            
+            if (sessionDataTask.state != NSURLSessionTaskStateCompleted) {
+                NSLog(@"有相同url正在请求, 取消此次请求===%@",reqArr);
+                return YES;
+            }
+        }
+    }
+    return NO;
 }
 
 @end

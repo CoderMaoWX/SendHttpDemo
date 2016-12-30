@@ -43,7 +43,7 @@
 - (IBAction)sendHttpRequest:(id)sender
 {
     //测试同时发送50个请求, 底层会自动管理
-    for (int i=0; i<2; i++) {
+    for (int i=0; i<20; i++) {
         [self sendMultifunctionReq:i];
     }
     
@@ -63,8 +63,8 @@
     
     model.loadView = self.view;
     //model.dataTableView = self.tableView;//如果页面有表格可传入会自动处理很多事件
-    model.sessionDataTaskArr = self.sessionDataTaskArr; //传入,则自动管理取消请求的操作
-    model.requestCachePolicy = RequestStoreCacheData; //需要保存底层网络数据
+    //model.sessionDataTaskArr = self.sessionDataTaskArr; //传入,则自动管理取消请求的操作
+    //model.requestCachePolicy = RequestStoreCacheData; //需要保存底层网络数据
     
     NSLog(@"发送请求中====%zd",tag);
     [CCHttpRequestTools sendMultifunctionCCRequest:model success:^(id returnValue) {

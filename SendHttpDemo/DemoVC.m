@@ -83,8 +83,8 @@
     
     model.loadView = self.view;
     model.dataTableView = self.tableView;
-    model.sessionDataTaskArr = self.sessionDataTaskArr;
-    model.requestCachePolicy = RequestStoreCacheData;
+//    model.sessionDataTaskArr = self.sessionDataTaskArr;
+//    model.requestCachePolicy = RequestStoreCacheData;
     
     NSLog(@"发送请求中====%zd",self.pageNum);
     [CCHttpRequestTools sendMultifunctionCCRequest:model success:^(id returnValue) {
