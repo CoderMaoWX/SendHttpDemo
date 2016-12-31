@@ -24,6 +24,25 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     globalReqManagerArr_ = [NSMutableArray array];
 }
 
+#pragma mark -取消全局所有请求
+
+/**
+ * 取消全局请求管理数组中所有请求操作
+ */
++ (void)cancelGlobalReqMangerAllOperations
+{
+    if (globalReqManagerArr_.count==0) return;
+    
+    for (NSURLSessionDataTask *sessionTask in globalReqManagerArr_) {
+        NSLog(@"父类释放时帮你取消请求操作===%@",sessionTask);
+        if ([sessionTask isKindOfClass:[NSURLSessionDataTask class]]) {
+            [sessionTask cancel];
+        }
+    }
+    //清除所有请求对象
+    [globalReqManagerArr_ removeAllObjects];
+}
+
 /**
  *  创建请求管理者
  */
@@ -38,7 +57,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 }
 
 
-#pragma mark - 包装请求入口
+#pragma mark -======== 底层公共请求入口 ========
 
 /**
  http 发送请求入口

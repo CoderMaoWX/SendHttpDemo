@@ -26,4 +26,10 @@ typedef void (^CCHttpFailureBlock) (NSError * error);
                               success:(CCHttpSuccessBlock)successBlock
                               failure:(CCHttpFailureBlock)failureBlock;
 
+
+/**
+ * 取消全局请求管理数组中所有请求操作
+ */
++ (void)cancelGlobalReqMangerAllOperations;
+
 @end
