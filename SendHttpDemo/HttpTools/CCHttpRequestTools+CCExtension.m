@@ -59,16 +59,8 @@
             [MBProgressHUD hideLoadingFromView:requestModel.loadView];
         }
         
-        //判断Token状态是否为失效
-        if (error.code == [kLoginFail integerValue]) {
-            //通知页面需要重新登录
-            [[NSNotificationCenter defaultCenter] postNotificationName:kTokenExpiry object:nil];
-            return ;
-            
-        } else {
-            if (failureBlock) {
-                failureBlock(error);
-            }
+        if (failureBlock) {
+            failureBlock(error);
         }
         
         //如果请求完成后需要判断页面表格下拉控件,分页,空白提示页的状态
@@ -78,7 +70,7 @@
         }
         
         //如果需要提示错误信息
-        if (!requestModel.forbidTipErrorInfo && !tableView) {
+        if (!requestModel.forbidTipErrorInfo) {
             UIView *tipView = requestModel.loadView ? : [UIApplication sharedApplication].keyWindow;
             
             //错误码在200-500内才提示服务端错误信息
@@ -142,7 +134,7 @@
     }
     
     //网络不正常,直接走返回失败
-    if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
         if (failureBlock) {
             failResultBlock([NSError errorWithDomain:NetworkConnectFailTip code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         }

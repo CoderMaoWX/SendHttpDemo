@@ -126,7 +126,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
         if (self.numberOfSections == 0 || (self.numberOfSections == 1 && [self numberOfRowsInSection:0] == 0)) {
             
             //根据状态,显示背景提示Viwe
-            if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {//没有网络
+            if (![AFNetworkReachabilityManager sharedManager].reachable) {//没有网络
                 WEAKSELF(weakSelf)
                 [self showTipBotton:YES TipStatus:RequesErrorNoNetWork tipString:nil clickBlock:^{
                     if (weakSelf.mj_header) {
@@ -187,7 +187,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
             //根据状态,显示背景提示Viwe
             WEAKSELF(weakSelf)
             //没有网络
-            if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+            if (![AFNetworkReachabilityManager sharedManager].reachable) {
                 [self showTipBotton:YES TipStatus:RequesErrorNoNetWork tipString:NetworkConnectFailTip clickBlock:^{
                     if (weakSelf.mj_header) {
                         //1.先移除页面上已有的提示CCParkingRequestTipView视图

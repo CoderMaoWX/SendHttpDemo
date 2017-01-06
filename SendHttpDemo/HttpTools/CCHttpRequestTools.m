@@ -15,6 +15,12 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 
 @implementation CCHttpRequestTools
 
++ (void)load
+{
+    //开始监听网络
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+}
+
 /**
  *  创建请全局求管理者
  */
@@ -81,6 +87,12 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     void (^failResultBlock)(NSError *) = ^(NSError *error){
         NSLog(@"请求参数= %@\n请求地址= %@\n网络数据失败返回= %@",requestModel.parameters,requestModel.requestUrl,error);
         
+        //判断Token状态是否为失效
+        if (error.code == [kLoginFail integerValue]) {
+            //通知页面需要重新登录
+            [[NSNotificationCenter defaultCenter] postNotificationName:kTokenExpiry object:nil];            
+        }
+        
         if (failureBlock) {
             failureBlock(error);
         }
@@ -111,7 +123,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     };
     
     //网络不正常,直接走返回失败
-    if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
         if (failureBlock) {
             failResultBlock([NSError errorWithDomain:NetworkConnectFailTip code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
         }

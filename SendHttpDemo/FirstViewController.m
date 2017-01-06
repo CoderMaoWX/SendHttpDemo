@@ -44,11 +44,13 @@
 {
     //测试同时发送50个请求, 底层会自动管理
     for (int i=0; i<20; i++) {
-        [self sendMultifunctionReq:i];
+        
+        //测试发送普通请求
+        [self sendCommomReq];
+        
+        //测试发送封装多功能请求
+        //[self sendMultifunctionReq:i];
     }
-    
-    //测试发送普通请求
-    //[self sendCommomReq];
 }
 
 /**
@@ -92,6 +94,7 @@
     model.parameters = nil;
     model.requestUrl = TestRequestUrl;
     
+    NSLog(@"测试发送普通请求");
     [CCHttpRequestTools sendCCRequest:model success:^(id returnValue) {
         NSLog(@"发送普通请求, 不错哦, 请求成功了");
         [MBProgressHUD showToastViewOnView:self.view text:@"请求成功,请查看打印日志"];

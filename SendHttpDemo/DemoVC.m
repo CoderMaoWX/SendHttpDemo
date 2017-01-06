@@ -58,7 +58,7 @@
     }
     NSDictionary *dic = self.tableDataArr[indexPath.row];
     cell.textLabel.text = dic[@"name"];
-    cell.textLabel.numberOfLines = 0;
+    cell.textLabel.numberOfLines = 1;
     return cell;
 }
 
