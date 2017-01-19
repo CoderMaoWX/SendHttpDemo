@@ -144,7 +144,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
                          parameters:requestModel.parameters
                            progress:nil
                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                NSLog(@"get请求请求绝对地址: %@",task.response.URL.absoluteString);
+                                NSLog(@"get请求请求绝对地址: %@,\n请求任务对象===%@",task.response.URL.absoluteString,task);
                                 succResultBlock(responseObject);
                                 
                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
