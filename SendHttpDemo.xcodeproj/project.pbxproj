@@ -221,7 +221,8 @@
 				TargetAttributes = {
 					B5EC7E0F1E0BD01300ABA5D1 = {
 						CreatedOnToolsVersion = 8.1;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = P8FFNR95EQ;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -438,8 +439,10 @@
 			baseConfigurationReference = CC84C2ED474B490C0B071F4E /* Pods-SendHttpDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = SendHttpDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.study.SendHttpDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -452,8 +455,10 @@
 			baseConfigurationReference = 7B9F34F8C5A2EE140D9BB4BD /* Pods-SendHttpDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = SendHttpDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.study.SendHttpDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
