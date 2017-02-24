@@ -1,23 +1,23 @@
 //
 //  CCFMDBTool.m
-//  HttpDemo
+//  okdeer-commonLibrary
 //
-//  Created by Luke on 2016/12/21.
+//  Created by mao wangxin on 2016/12/21.
 //  Copyright (c) 2015年 Chehu. All rights reserved.
 //
 
-#import "CCFMDBTool.h"
+#import "OKFMDBTool.h"
 #import "FMDB.h"
 
 /** 数据库名称 */
 #define AppFMDBName                      @"HttpDemo.sqlite"
 
 //=============版本的数据库表名===============
-#define GJJsonData_Table                 @"CCJsonData_Table"                /** 保存应用所有接口返回的json数据表*/
-#define GJAppGlobalInfoManager_Table     @"CCAppGlobalInfoManager_Table"    /** 保存应用常用数据(版本信息等)表*/
-#define GJTempInfoModel_Table            @"CCTempInfoModel_Table"           /** 保存临时数据*/
+#define OKJsonData_Table                 @"OKJsonData_Table"                /** 保存应用所有接口返回的json数据表*/
+#define OKAppGlobalInfoManager_Table     @"OKAppGlobalInfoManager_Table"    /** 保存应用常用数据(版本信息等)表*/
+#define OKTempInfoModel_Table            @"OKTempInfoModel_Table"           /** 保存临时数据*/
 
-@implementation CCFMDBTool
+@implementation OKFMDBTool
 
 static FMDatabase *_db;
 
@@ -41,13 +41,13 @@ static FMDatabase *_db;
     if (![_db open]) return;
     
     // 2.创建json数据表
-    [_db executeUpdate:@"create table if not exists GJJsonData_Table (id integer PRIMARY KEY,jsonkey text NOT NULL,jsonData blob  NOT NULL)"];
+    [_db executeUpdate:@"create table if not exists OKJsonData_Table (id integer PRIMARY KEY,jsonkey text NOT NULL,jsonData blob  NOT NULL)"];
     
     // 3.创建常用数据表
-    [_db executeUpdate:@"create table if not exists GJAppGlobalInfoManager_Table (id integer PRIMARY KEY, appGlobalInfo blob NOT NULL, userID text NOT NULL);"];
+    [_db executeUpdate:@"create table if not exists OKAppGlobalInfoManager_Table (id integer PRIMARY KEY, appGlobalInfo blob NOT NULL, userID text NOT NULL);"];
     
     // 4.创建临时数据表
-    [_db executeUpdate:@"create table if not exists GJTempInfoModel_Table (id INT PRIMARY KEY ,tempInfo blob NOT NULL, userID text NOT NULL)"];
+    [_db executeUpdate:@"create table if not exists OKTempInfoModel_Table (id INT PRIMARY KEY ,tempInfo blob NOT NULL, userID text NOT NULL)"];
 }
 
 #pragma mark - 保存数据操作
@@ -65,28 +65,28 @@ static FMDatabase *_db;
 {
     if (tableNameType == JsonDataTableType) {
         
-        [_db executeUpdate:@"DELETE FROM GJJsonData_Table WHERE jsonkey = ?",objectId];
-        BOOL isOK = [_db executeUpdate:@"insert into GJJsonData_Table (jsonkey,jsonData) values (?,?)", objectId, data];
+        [_db executeUpdate:@"DELETE FROM OKJsonData_Table WHERE jsonkey = ?",objectId];
+        BOOL isOK = [_db executeUpdate:@"insert into OKJsonData_Table (jsonkey,jsonData) values (?,?)", objectId, data];
         NSLog(@"保存 JsonData_Table 到数据库是否成功: %d",isOK);
         return isOK;
         
         
     } else if (tableNameType == AppGlobalInfoTableType) {
         
-        [_db executeUpdateWithFormat:@"DELETE FROM GJAppGlobalInfoManager_Table WHERE userID = %@;" ,objectId];
+        [_db executeUpdateWithFormat:@"DELETE FROM OKAppGlobalInfoManager_Table WHERE userID = %@;" ,objectId];
         
         NSData *globalManagerData = [NSKeyedArchiver archivedDataWithRootObject:data];
-        BOOL isOK = [_db executeUpdateWithFormat:@"INSERT INTO GJAppGlobalInfoManager_Table (appGlobalInfo, userID) VALUES(%@, %@);", globalManagerData, objectId];
+        BOOL isOK = [_db executeUpdateWithFormat:@"INSERT INTO OKAppGlobalInfoManager_Table (appGlobalInfo, userID) VALUES(%@, %@);", globalManagerData, objectId];
         NSLog(@"保存 AppGlobalInfoTable 到数据库是否成功: %d==%@",isOK,data);
         return isOK;
         
         
     } else if (tableNameType == TempInfoTableType) {
         
-        [_db executeUpdateWithFormat:@"DELETE FROM GJTempInfoModel_Table WHERE userID = %@;" ,objectId];
+        [_db executeUpdateWithFormat:@"DELETE FROM OKTempInfoModel_Table WHERE userID = %@;" ,objectId];
         
         NSData *tempBrandTableData = [NSKeyedArchiver archivedDataWithRootObject:data];
-        BOOL isOK = [_db executeUpdateWithFormat:@"INSERT INTO GJTempInfoModel_Table (tempInfo, userID) VALUES(%@, %@);", tempBrandTableData, objectId];
+        BOOL isOK = [_db executeUpdateWithFormat:@"INSERT INTO OKTempInfoModel_Table (tempInfo, userID) VALUES(%@, %@);", tempBrandTableData, objectId];
         NSLog(@"保存 TempBrandTable 到数据库是否成功: %d==%@",isOK,tempBrandTableData);
         return isOK;
     }
@@ -107,7 +107,7 @@ static FMDatabase *_db;
 {
     FMResultSet *set = nil;
     if (tableNameType == JsonDataTableType) {
-        set = [_db executeQuery:@"SELECT * FROM GJJsonData_Table WHERE jsonkey = ? ", objectId];
+        set = [_db executeQuery:@"SELECT * FROM OKJsonData_Table WHERE jsonkey = ? ", objectId];
         
         //只有一行数据就用 if, 否则用 while
         if ([set next]) {
@@ -117,16 +117,16 @@ static FMDatabase *_db;
         }
         
     } else if (tableNameType == AppGlobalInfoTableType) {
-        set = [_db executeQueryWithFormat:@"SELECT * FROM GJAppGlobalInfoManager_Table WHERE userID = %@;",objectId];
+        set = [_db executeQueryWithFormat:@"SELECT * FROM OKAppGlobalInfoManager_Table WHERE userID = %@;",objectId];
         
         //只有一行数据就用 if, 否则用 while
         if ([set next]) {
             NSObject *appGlobalManager = [NSKeyedUnarchiver unarchiveObjectWithData:[set objectForColumnName:@"appGlobalInfo"]];
             return appGlobalManager;
         }
-    
+        
     } else if (tableNameType == TempInfoTableType) {
-        set = [_db executeQueryWithFormat:@"SELECT * FROM GJTempInfoModel_Table WHERE userID = %@;",objectId];
+        set = [_db executeQueryWithFormat:@"SELECT * FROM OKTempInfoModel_Table WHERE userID = %@;",objectId];
         
         //只有一行数据就用 if, 否则用 while
         if ([set next]){
@@ -151,17 +151,17 @@ static FMDatabase *_db;
 + (BOOL)removeDataByKey:(NSString *)objectId fromTable:(DBNameType)tableNameType
 {
     if (tableNameType == JsonDataTableType) {
-        BOOL isOK = [_db executeUpdate:@"DELETE FROM GJJsonData_Table WHERE jsonKey = ?",objectId];
+        BOOL isOK = [_db executeUpdate:@"DELETE FROM OKJsonData_Table WHERE jsonKey = ?",objectId];
         NSLog(@"删除jsonKey = %@  JsonDataTable 操作是否成功: %d",objectId,isOK);
         return isOK;
         
     } else if (tableNameType == AppGlobalInfoTableType) {
-        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM GJAppGlobalInfoManager_Table WHERE userID = %@;" ,objectId];
+        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM OKAppGlobalInfoManager_Table WHERE userID = %@;" ,objectId];
         NSLog(@"删除userID = %@  AppGlobalInfoTableType 操作是否成功: %d",objectId,isOK);
         return isOK;
         
     } else if (tableNameType == TempInfoTableType) {
-        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM GJTempInfoModel_Table WHERE userID = %@;" ,objectId];
+        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM OKTempInfoModel_Table WHERE userID = %@;" ,objectId];
         NSLog(@"删除userID = %@  TempInfoTableType 操作是否成功: %d",objectId,isOK);
         return isOK;
     }
@@ -181,17 +181,17 @@ static FMDatabase *_db;
 + (BOOL)removeAllDataFromTable:(DBNameType)tableNameType
 {
     if (tableNameType == JsonDataTableType) {
-        BOOL isOK = [_db executeUpdate:@"DELETE FROM GJJsonData_Table"];
+        BOOL isOK = [_db executeUpdate:@"DELETE FROM OKJsonData_Table"];
         NSLog(@"删除所有  JsonDataTable 操作是否成功: %d",isOK);
         return isOK;
         
     } else if (tableNameType == AppGlobalInfoTableType) {
-        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM GJAppGlobalInfoManager_Table"];
+        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM OKAppGlobalInfoManager_Table"];
         NSLog(@"删除所有  AppGlobalInfoTable 操作是否成功: %d",isOK);
         return isOK;
         
     } else if (tableNameType == TempInfoTableType) {
-        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM GJTempInfoModel_Table"];
+        BOOL isOK = [_db executeUpdateWithFormat:@"DELETE FROM OKTempInfoModel_Table"];
         NSLog(@"删除所有 TempBrandTable 操作是否成功: %d",isOK);
         return isOK;
     }

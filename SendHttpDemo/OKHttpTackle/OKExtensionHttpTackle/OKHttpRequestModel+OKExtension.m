@@ -1,22 +1,23 @@
 //
-//  CCHttpRequestModel+CCExtension.m
-//  HttpDemo
+//  OKHttpRequestModel+OKExtension.m
+//  okdeer-commonLibrary
 //
 //  Created by mao wangxin on 2016/12/22.
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "CCHttpRequestModel+CCExtension.h"
+#import "OKHttpRequestModel+OKExtension.h"
 #import <objc/runtime.h>
 
 static char const * const kLoadViewKey              = "kLoadViewKey";
 static char const * const kDataTableViewKey         = "kDataTableViewKey";
 static char const * const kForbidTipErrorInfoKey    = "kForbidTipErrorInfoKey";
+static char const * const kAttemptRequestWhenFail   = "kAttemptRequestWhenFail";
 static char const * const kRequestCachePolicyKey    = "kRequestCachePolicyKey";
 static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 
 
-@implementation CCHttpRequestModel (CCExtension)
+@implementation OKHttpRequestModel (OKExtension)
 
 
 #pragma mark - ========== 请求时的转圈父视图 ==========
@@ -47,12 +48,26 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 
 - (void)setForbidTipErrorInfo:(BOOL)forbidTipErrorInfo
 {
-    objc_setAssociatedObject(self, kForbidTipErrorInfoKey, @(forbidTipErrorInfo), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, kForbidTipErrorInfoKey, @(forbidTipErrorInfo), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL)forbidTipErrorInfo
 {
-    return objc_getAssociatedObject(self, kForbidTipErrorInfoKey);
+    id value = objc_getAssociatedObject(self, kForbidTipErrorInfoKey);
+    return [value boolValue];
+}
+
+#pragma mark - ========== 是否在失败是尝试重新请求，(如果尝试则3次) ==========
+
+- (void)setAttemptRequestWhenFail:(BOOL)attemptRequestWhenFail
+{
+    objc_setAssociatedObject(self, kAttemptRequestWhenFail, @(attemptRequestWhenFail), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)attemptRequestWhenFail
+{
+    id value = objc_getAssociatedObject(self, kAttemptRequestWhenFail);
+    return [value boolValue];
 }
 
 #pragma mark - ========== 请求缓存策略 ==========
@@ -76,12 +91,13 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 
 - (void)setIsCacheData:(BOOL)isCacheData
 {
-    objc_setAssociatedObject(self, kIsCacheDataKey, @(isCacheData), OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, kIsCacheDataKey, @(isCacheData), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (BOOL)isCacheData
 {
-    return objc_getAssociatedObject(self, kIsCacheDataKey);
+    id value = objc_getAssociatedObject(self, kIsCacheDataKey);
+    return [value boolValue];
 }
 
 @end

@@ -6,16 +6,17 @@
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "CCBaseViewController.h"
+#import "OKBaseViewController.h"
 
-@interface CCBaseViewController ()
+@interface OKBaseViewController ()
 
 @end
 
-@implementation CCBaseViewController
+@implementation OKBaseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
 }
 

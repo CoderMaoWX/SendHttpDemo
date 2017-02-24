@@ -1,8 +1,8 @@
 //
 //  CCFMDBTool.h
-//  HttpDemo
+//  okdeer-commonLibrary
 //
-//  Created by Luke on 2016/12/21.
+//  Created by mao wangxin on 2016/12/21.
 //  Copyright (c) 2015年 Chehu. All rights reserved.
 //
 
@@ -11,14 +11,14 @@
 typedef enum : NSUInteger {
     JsonDataTableType,      //每个请求的网络数据的数据库表
     AppGlobalInfoTableType, //全局单例对象数据库表
-    TempInfoTableType,      //登录入驻时记录的临时缓存数据库表
+    TempInfoTableType,      //临时缓存数据库表
 } DBNameType; //数据库表类型
 
 
-@interface CCFMDBTool : NSObject
+@interface OKFMDBTool : NSObject
 
 /**
- *  初始化一点管家数据库
+ *  初始化数据库
  */
 + (void)initFMDB;
 

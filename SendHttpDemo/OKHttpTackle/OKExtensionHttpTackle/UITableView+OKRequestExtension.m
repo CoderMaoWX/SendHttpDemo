@@ -1,16 +1,33 @@
 //
-//  UITableView+CCExtension.m
-//  Okdeer-jieshun-parkinglot
+//  UITableView+OKRequestExtension.m
+//  okdeer-commonLibrary
 //
-//  Created by mao wangxin on 2016/11/21.
+//  Created by mao wangxin on 2016/12/28.
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "UITableView+CCExtension.h"
-#import "CCHttpRequestModel.h"
-#import "CCParkingRequestTipView.h"
+#import "UITableView+OKRequestExtension.h"
+#import "OKHttpRequestModel.h"
+#import "OKCommonTipView.h"
 #import <AFNetworkReachabilityManager.h>
-#import <MJRefresh.h>
+
+//状态栏高度 (电池栏)
+#define KStatusBarHeight         20
+//系统导航高度(没有包含电池栏)
+#define KSystemNavBarHeight      44
+//所有表格顶部空出10的间隙
+#define kTableViewTopSpace       10
+//默认cell高度
+#define kDefaultCellHeight       48
+//获取屏幕宽度
+#define Screen_Width            ([UIScreen  mainScreen].bounds.size.width)
+//获取屏幕高度
+#define Screen_Height           ([UIScreen mainScreen].bounds.size.height)
+//RGB颜色
+#define RGB(r,g,b)              [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f                                                                                 alpha:1.f]
+
+#define kTotalPageKey                       @"totalPage"
+#define kCurrentPageKey                     @"currentPage"
 
 #define WEAKSELF(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
@@ -19,7 +36,33 @@ static char const * const kEmptyImgKey    = "kEmptyImgKey";
 static char const * const kErrorImgKey    = "kErrorImgKey";
 static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 
-@implementation UITableView (CCExtension)
+@implementation UITableView (OKRequestExtension)
+
++ (instancetype)plainTableView
+{
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, KSystemNavBarHeight+20, Screen_Width, Screen_Height-KSystemNavBarHeight-20) style:UITableViewStylePlain];
+    tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    tableView.rowHeight = kDefaultCellHeight;
+    tableView.backgroundColor = RGB(238, 241, 245);
+    tableView.separatorColor = RGB(229,229,229);
+    tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.01)];
+    tableView.tableFooterView = [UIView new];
+    return tableView;
+}
+
++ (instancetype)groupedTableView
+{
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, KSystemNavBarHeight+20, Screen_Width, Screen_Height-KSystemNavBarHeight-20) style:UITableViewStyleGrouped];
+    tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, kTableViewTopSpace)];
+    tableView.rowHeight = kDefaultCellHeight;
+    tableView.backgroundColor = RGB(238, 241, 245);
+    tableView.separatorColor = RGB(229,229,229);
+    tableView.sectionHeaderHeight = 0.01;
+    tableView.sectionFooterHeight = kTableViewTopSpace;
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.01)];
+    return tableView;
+}
 
 #pragma mark - ========== 请求失败提示view相关 ==========
 
@@ -77,7 +120,8 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
  @param headerBlock 下拉刷新需要调用的函数
  @param footerBlock 上啦刷新需要调用的函数
  */
-- (void)addheaderRefresh:(MJRefreshComponentRefreshingBlock)headerBlock footerBlock:(MJRefreshComponentRefreshingBlock)footerBlock
+- (void)addheaderRefresh:(MJRefreshComponentRefreshingBlock)headerBlock
+             footerBlock:(MJRefreshComponentRefreshingBlock)footerBlock
 {
     if (headerBlock) {
         WEAKSELF(weakSelf)
@@ -150,32 +194,29 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
             //控制上啦控件的显示
             if (!self.mj_footer) return;
             
-            NSArray *listArr = responseData[@"data"];
-            if ([listArr isKindOfClass:[NSArray class]]) {
-                if (listArr.count>0) {
+            //控制上啦控件显示的分页逻辑
+            if ([((NSDictionary *)responseData).allKeys containsObject:kTotalPageKey] &&
+                [((NSDictionary *)responseData).allKeys containsObject:kCurrentPageKey] ) {
+                NSInteger totalPage = [responseData[kTotalPageKey] integerValue];
+                NSInteger currentPage = [responseData[kCurrentPageKey] integerValue];
+                
+                if (totalPage > currentPage) {
                     self.mj_footer.hidden = NO;
                 } else {
                     [self.mj_footer endRefreshingWithNoMoreData];
-                    //self.mj_footer.hidden = YES;
+                    self.mj_footer.hidden = YES;
                 }
-                
+            } else if([((NSDictionary *)responseData).allKeys containsObject:kRequestListkey]){
+                NSArray *dataArr = responseData[kRequestListkey];
+                if (dataArr.count>0) {
+                    self.mj_footer.hidden = NO;
+                } else {
+                    [self.mj_footer endRefreshingWithNoMoreData];
+                    self.mj_footer.hidden = YES;
+                }
             } else {
                 self.mj_footer.hidden = NO;
             }
-            
-//            if (responseData[@"totalPage"]) {
-//                NSInteger totalPage = [responseData[@"totalPage"] integerValue];
-//                NSInteger currentPage = [responseData[@"currentPage"] integerValue];
-//                
-//                if (totalPage > currentPage) {
-//                    self.mj_footer.hidden = NO;
-//                } else {
-//                    [self.mj_footer endRefreshingWithNoMoreData];
-//                    self.mj_footer.hidden = YES;
-//                }
-//            } else {
-//                self.mj_footer.hidden = NO;
-//            }
         }
         
     } else if([responseData isKindOfClass:[NSError class]]){ //请求失败处理
@@ -223,7 +264,10 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 /**
  * 设置提示图片和文字
  */
-- (void)showTipBotton:(BOOL)show TipStatus:(TableVieTipStatus)state tipString:(NSString *)tipString clickBlock:(void(^)())blk
+- (void)showTipBotton:(BOOL)show
+            TipStatus:(TableVieTipStatus)state
+            tipString:(NSString *)tipString
+           clickBlock:(void(^)())blk
 {
     //先移除页面上已有的提示CCParkingRequestTipView视图
     [self removeOldTipBgView];
@@ -254,7 +298,11 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     
     //这里防止表格有偏移量，一定要设置y的起始位置为0
     CGRect rect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-    UIView *tipBgView = [CCParkingRequestTipView tipViewByFrame:rect tipImageName:imageName tipText:tipText actionTitle:actionTitle actionBlock:blk];
+    UIView *tipBgView = [OKCommonTipView tipViewByFrame:rect
+                                           tipImageName:imageName
+                                                tipText:tipText
+                                            actionTitle:actionTitle
+                                            actionBlock:blk];
     [self addSubview:tipBgView];
 }
 
@@ -264,7 +312,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 - (void)removeOldTipBgView
 {
     for (UIView *tempView in self.subviews) {
-        if ([tempView isKindOfClass:[CCParkingRequestTipView class]] ||
+        if ([tempView isKindOfClass:[OKCommonTipView class]] ||
             tempView.tag == kRequestTipViewTag) {
             [tempView removeFromSuperview];
             break;

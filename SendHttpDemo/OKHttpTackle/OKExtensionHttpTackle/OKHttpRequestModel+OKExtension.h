@@ -1,12 +1,12 @@
 //
-//  CCHttpRequestModel+CCExtension.h
-//  HttpDemo
+//  OKHttpRequestModel+OKExtension.h
+//  okdeer-commonLibrary
 //
 //  Created by mao wangxin on 2016/12/22.
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "CCHttpRequestModel.h"
+#import "OKHttpRequestModel.h"
 #import <UIKit/UIKit.h>
 
 //如果请求时缓存了网络数据,则下次相同的请求地址,则会优先返回缓存数据,同时请求最新的数据再返回
@@ -19,7 +19,7 @@ typedef enum : NSUInteger {
 /**
  * 网络请求Model扩展信息
  */
-@interface CCHttpRequestModel (CCExtension)
+@interface OKHttpRequestModel (OKExtension)
 
 
 /** 请求时转圈的父视图 */
@@ -30,6 +30,9 @@ typedef enum : NSUInteger {
 
 /** 是否在底层提示失败信息 (默认提示) */
 @property (nonatomic, assign) BOOL forbidTipErrorInfo;
+
+/** 是否在失败是尝试重新请求，(如果尝试则3次) */
+@property (nonatomic, assign) BOOL attemptRequestWhenFail;
 
 /** 是否需要在底层缓存当前网络数据 */
 @property (nonatomic, assign) CCRequestCachePolicy requestCachePolicy;

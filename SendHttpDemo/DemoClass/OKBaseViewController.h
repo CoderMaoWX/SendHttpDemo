@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CCBaseViewController : UIViewController
+@interface OKBaseViewController : UIViewController
 
 
 /** 表格数据源数组 */

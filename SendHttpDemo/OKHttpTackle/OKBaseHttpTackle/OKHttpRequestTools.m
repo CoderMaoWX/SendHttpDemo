@@ -1,19 +1,20 @@
 //
 //  CCHttpRequestTools.m
-//  HttpDemo
+//  okdeer-commonLibrary
 //
 //  Created by mao wangxin on 2016/12/21.
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "CCHttpRequestTools.h"
+#import "OKHttpRequestTools.h"
 #import <objc/runtime.h>
 #import <AFNetworking.h>
 
 static NSMutableArray *globalReqManagerArr_;
+
 static char const * const kRequestUrlKey    = "kRequestUrlKey";
 
-@implementation CCHttpRequestTools
+@implementation OKHttpRequestTools
 
 + (void)load
 {
@@ -35,12 +36,12 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 /**
  * 取消全局请求管理数组中所有请求操作
  */
-+ (void)cancelGlobalReqMangerAllOperations
++ (void)cancelGlobalAllReqMangerTask
 {
     if (globalReqManagerArr_.count==0) return;
     
     for (NSURLSessionDataTask *sessionTask in globalReqManagerArr_) {
-        NSLog(@"父类释放时帮你取消请求操作===%@",sessionTask);
+        NSLog(@"取消全局请求管理数组中所有请求操作===%@",sessionTask);
         if ([sessionTask isKindOfClass:[NSURLSessionDataTask class]]) {
             [sessionTask cancel];
         }
@@ -48,6 +49,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     //清除所有请求对象
     [globalReqManagerArr_ removeAllObjects];
 }
+
 
 /**
  *  创建请求管理者
@@ -62,7 +64,6 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
     return mgr_;
 }
 
-
 #pragma mark -======== 底层公共请求入口 ========
 
 /**
@@ -73,41 +74,59 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
  @param failureBlock 请求失败执行的block
  @return 返回当前请求的对象
  */
-+ (NSURLSessionDataTask *)sendCCRequest:(CCHttpRequestModel *)requestModel
-                                success:(CCHttpSuccessBlock)successBlock
-                                failure:(CCHttpFailureBlock)failureBlock
++ (NSURLSessionDataTask *)sendOKRequest:(OKHttpRequestModel *)requestModel
+                                success:(OKHttpSuccessBlock)successBlock
+                                failure:(OKHttpFailureBlock)failureBlock
 {
-    //请求地址为空则不请求
-    if (!requestModel.requestUrl) return nil;
-    
-    //如果有相同url正在请求, 则取消此次请求
-    if ([self isCurrentSessionDataTaskRunning:requestModel]) return nil;
-
     //失败回调
     void (^failResultBlock)(NSError *) = ^(NSError *error){
-        NSLog(@"请求参数= %@\n请求地址= %@\n网络数据失败返回= %@",requestModel.parameters,requestModel.requestUrl,error);
+        NSLog(@"请求接口基地址= %@\n\n请求参数= %@\n\n网络数据失败返回= %@\n\n",requestModel.requestUrl,requestModel.parameters,error);
         
-        //判断Token状态是否为失效
-        if (error.code == [kLoginFail integerValue]) {
-            //通知页面需要重新登录
-            [[NSNotificationCenter defaultCenter] postNotificationName:kTokenExpiry object:nil];            
-        }
-        
-        if (failureBlock) {
-            failureBlock(error);
+        if (error.code != NSURLErrorCancelled) {
+            if (failureBlock) {
+                failureBlock(error);
+            }
+        } else {
+            NSLog(@"页面已主动触发取消请求,此次请求不回调到页面");
         }
         
         //每个请求完成后,从队列中移除当前请求任务
         [self removeCompletedTaskSession:requestModel];
     };
     
+    
+    //请求地址为空则不请求
+    if (!requestModel.requestUrl) {
+        if (failResultBlock) {
+            failResultBlock([NSError errorWithDomain:RequestFailCommomTip code:[kServiceErrorStatues integerValue] userInfo:nil]);
+        }
+        return nil;
+    };
+    
+    //如果有相同url正在请求, 则取消此次请求
+    if ([self isCurrentSessionDataTaskRunning:requestModel]) {
+        if (failResultBlock) {
+            failResultBlock([NSError errorWithDomain:RequestFailCommomTip code:[kServiceErrorStatues integerValue] userInfo:nil]);
+        }
+        return nil;
+    };
+    
+    //网络不正常,直接走返回失败
+    if (![AFNetworkReachabilityManager sharedManager].reachable) {
+        if (failureBlock) {
+            failResultBlock([NSError errorWithDomain:NetworkConnectFailTip code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
+        }
+        return nil;
+    }
+    
     //成功回调
     void(^succResultBlock)(id responseObject) = ^(id responseObject){
         
         NSInteger code = [responseObject[kRequestCodeKey] integerValue];
-        if (code == 0 || code == 200)
+        if (code == [kRequestSuccessStatues integerValue] ||
+            code == 200)
         {
-            NSLog(@"请求参数= %@\n请求地址= %@\n网络数据成功返回= %@",requestModel.parameters,requestModel.requestUrl,responseObject);
+            NSLog(@"请求接口基地址= %@\n\n请求参数= %@\n\n网络数据成功返回= %@\n\n",requestModel.requestUrl,requestModel.parameters,responseObject);
             
             /** <1>.回调页面请求 */
             if (successBlock) {
@@ -122,13 +141,6 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
         [self removeCompletedTaskSession:requestModel];
     };
     
-    //网络不正常,直接走返回失败
-    if (![AFNetworkReachabilityManager sharedManager].reachable) {
-        if (failureBlock) {
-            failResultBlock([NSError errorWithDomain:NetworkConnectFailTip code:kCFURLErrorNotConnectedToInternet userInfo:nil]);
-        }
-        return nil;
-    }
     
     //设置请求超时时间
     AFHTTPSessionManager *mgr_ = [self afManager];
@@ -144,7 +156,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
                          parameters:requestModel.parameters
                            progress:nil
                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                NSLog(@"get请求请求绝对地址: %@,\n请求任务对象===%@",task.response.URL.absoluteString,task);
+                                NSLog(@"get请求请求绝对地址: %@\n\n",task.response.URL.absoluteString);
                                 succResultBlock(responseObject);
                                 
                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -159,7 +171,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
                           parameters:requestModel.parameters
                             progress:nil
                              success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                 NSLog(@"post请求请求绝对地址: %@",task.response.URL.absoluteString);
+                                 NSLog(@"post请求请求绝对地址: %@\n\n",task.response.URL.absoluteString);
                                  succResultBlock(responseObject);
                       
                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -173,7 +185,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
         sessionDataTask = [mgr_ HEAD:requestModel.requestUrl
                           parameters:requestModel.parameters
                              success:^(NSURLSessionDataTask * _Nonnull task) {
-                                 NSLog(@"head请求请求绝对地址: %@",task.response.URL.absoluteString);
+                                 NSLog(@"head请求请求绝对地址: %@\n\n",task.response.URL.absoluteString);
                                  succResultBlock(task);
             
                              } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -187,8 +199,8 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
         sessionDataTask = [mgr_ PUT:requestModel.requestUrl
                          parameters:requestModel.parameters
                             success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                                NSLog(@"put请求请求绝对地址: %@",task.response.URL.absoluteString);
-                                succResultBlock(task);
+                                NSLog(@"put请求请求绝对地址: %@\n\n",task.response.URL.absoluteString);
+                                succResultBlock(responseObject);
                      
                             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                                 failResultBlock(error);
@@ -215,7 +227,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 /**
  * 判断当前是否有相同的url正在请求
  */
-+ (BOOL)isCurrentSessionDataTaskRunning:(CCHttpRequestModel *)requestModel
++ (BOOL)isCurrentSessionDataTaskRunning:(OKHttpRequestModel *)requestModel
 {
     NSString *requestUrl = requestModel.requestUrl;
     if (requestModel.sessionDataTaskArr) {
@@ -231,7 +243,7 @@ static char const * const kRequestUrlKey    = "kRequestUrlKey";
 /**
  * 移除当前完成了的请求NSURLSessionDataTask
  */
-+ (void)removeCompletedTaskSession:(CCHttpRequestModel *)requestModel
++ (void)removeCompletedTaskSession:(OKHttpRequestModel *)requestModel
 {
     NSString *requestUrl = requestModel.requestUrl;
     if (requestModel.sessionDataTaskArr) {
