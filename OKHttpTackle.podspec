@@ -9,7 +9,7 @@ s.author             = { "luocheng" => "maowangxin_2013@163.com" }
 s.social_media_url   = "http://www.jianshu.com/u/c4ac9f9adf58"
 s.source       = { :git => "https://github.com/luocheng2013/SendHttpDemo.git", :tag => s.version }
 s.requires_arc = true
-s.source_files  = 'OKHttpTackle/**/*.{h.m}'
+s.source_files  = 'OKHttpTackle'
 s.resources = "OKHttpTackle/OKHttpTackle.bundle"
 s.dependency 'AFNetworking'
 s.dependency 'MBProgressHUD'
