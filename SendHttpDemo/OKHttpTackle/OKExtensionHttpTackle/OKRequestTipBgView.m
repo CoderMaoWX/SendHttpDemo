@@ -86,6 +86,11 @@
     tipBgView.backgroundColor = UIColorFromHex(0xf5f6f8);
     
     UIImage *image = [UIImage imageNamed:imageName];
+    if (!image) {
+        NSBundle *bundle = [NSBundle bundleForClass:[OKRequestTipBgView class]];
+        NSString *imageNamePath = [NSString stringWithFormat:@"OKHttpTackle.bundle/%@",imageName];
+        image = [UIImage imageNamed:imageNamePath inBundle:bundle compatibleWithTraitCollection:nil];
+    }
     
     //中间文字
     UILabel *_tipLabel = nil;
