@@ -291,17 +291,17 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
         
     } else if (state == RequestEmptyDataStatus) { //请求空数据
         tipText = self.emptyString ? : @"暂无数据 ";
-        imageName = self.emptyImageName ? : @"empty_data_icon";
+        imageName = self.emptyImageName ? : @"ok_empty_data_icon";
         
     } else if (state == RequesErrorNoNetWork) { //网络连接失败
         tipText = @"网络开小差, 请稍后再试哦!";
         actionTitle = @"重新加载";
-        imageName = self.errorImageName ? : @"networkfail_icon";
+        imageName = self.errorImageName ? : @"ok_networkfail_icon";
         
     } else if (state == RequestFailStatus) { //请求失败
         tipText = @"加载失败了哦!";
         actionTitle = @"重新加载";
-        imageName = self.errorImageName ? : @"loading_fail_icon";
+        imageName = self.errorImageName ? : @"ok_loading_fail_icon";
     }
     
     //这里防止表格有偏移量，一定要设置y的起始位置为0
