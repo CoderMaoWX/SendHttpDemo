@@ -13,10 +13,13 @@
 
 /**
  *  在指定view上显示转圈的MBProgressHUD (不会自动消失,需要手动调用隐藏方法,非模态)
- *
- *  @param tipStr 提示语
  */
 + (void)showLoadingWithView:(UIView *)view text:(NSString *)tipStr;
+
+/**
+ *  在指定view上显示转圈的MBProgressHUD (不会自动消失,需要手动调用隐藏方法,非模态)
+ */
++ (void)showToastViewOnView:(UIView *)addView text:(NSString *)message;
 
 /**
  *  隐藏指定view上创建的MBProgressHUD
@@ -43,9 +46,9 @@
  @return 提示空白view
  */
 + (OKRequestTipBgView *)tipViewByFrame:(CGRect)frame
-                       tipImageName:(NSString *)imageName
-                            tipText:(id)tipText
-                        actionTitle:(NSString *)actionTitle
-                        actionBlock:(void(^)())touchBlock;
+                          tipImageName:(NSString *)imageName
+                               tipText:(id)tipText
+                           actionTitle:(NSString *)actionTitle
+                           actionBlock:(void(^)())touchBlock;
 
 @end

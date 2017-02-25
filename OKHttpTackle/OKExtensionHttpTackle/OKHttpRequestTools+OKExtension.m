@@ -10,7 +10,7 @@
 #import <AFNetworking.h>
 #import "OKRequestTipBgView.h"
 #import "OKFMDBTool.h"
-#import <MBProgressHUD.h>
+#import "OKRequestTipBgView.h"
 
 //重复请求次数key
 static char const * const kRequestTimeCountKey    = "kRequestTimeCountKey";

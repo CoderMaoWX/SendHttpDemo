@@ -8,12 +8,11 @@
 
 #import "DemoViewController.h"
 #import "ListViewController.h"
-#import <MBProgressHUD.h>
+#import "OKRequestTipBgView.h"
 //发送封装多功能请求用到
 #import "OKHttpRequestTools+OKExtension.h"
 //发送普通请求用到
 #import "OKHttpRequestTools.h"
-
 //请求测试地址1
 #define TestRequestUrl1      @"http://api.cnez.info/product/getProductList/1"
 //请求测试地址2

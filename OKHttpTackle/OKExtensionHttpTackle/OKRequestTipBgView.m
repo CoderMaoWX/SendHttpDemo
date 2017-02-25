@@ -13,8 +13,6 @@
 
 @implementation MBProgressHUD (Extension)
 
-#pragma mark - 弹框在指定view上
-
 /**
  *  获取子view
  */
@@ -48,6 +46,33 @@
             [HUD showAnimated:YES];
         }
     }
+}
+
+/**
+ *  在自定义view上暂时卡住页面
+ *
+ *  @param addView  提示层加在当前页面上
+ *  @param message 提示语
+ */
++ (void)showToastViewOnView:(UIView *)addView text:(NSString *)message
+{
+    addView = [self getHUDFromSubview:addView];
+    
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:addView];
+    [addView addSubview:HUD];
+    
+    if (message.length>14) {
+        HUD.detailsLabel.text = message;
+    } else {
+        if(message) HUD.label.text = message;
+        else HUD.label.text = @"请稍等";
+    }
+    
+    HUD.mode = MBProgressHUDModeText;
+    HUD.removeFromSuperViewOnHide = YES;
+    // HUD.dimBackground = YES;// YES代表需要蒙版效果
+    [HUD showAnimated:YES];
+    [HUD hideAnimated:YES afterDelay:2.0];
 }
 
 
