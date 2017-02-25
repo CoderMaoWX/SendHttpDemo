@@ -102,18 +102,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated;
 
-// add by Luke
-+ (void)showToastViewOnView:(UIView *)addView text:(NSString *)message;
-
-// add by Luke
-+ (void)showLoadingWithView:(UIView *)view text:(NSString *)tipStr;
-
-/**
- *  隐藏指定view上创建的MBProgressHUD ,add by Luke
- */
-+ (void)hideLoadingFromView:(UIView *)view;
-
-
 
 /// @name Showing and hiding
 
