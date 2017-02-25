@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "OKHttpTackle"
-s.version      = “0.0.1”
+s.version      = "0.0.1"
 s.ios.deployment_target = '7.0'
 s.summary      = "一个在AFNetworking库上的二次封装，一个请求即自动处理请求转圈、请求提示、数据缓存、表格分页处理、无数据或失败等页面提示、失败尝试重复请求等操作"
 s.homepage     = "https://github.com/luocheng2013/SendHttpDemo"
