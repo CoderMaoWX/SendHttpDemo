@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MJRefresh.h>
+#import "MJRefresh.h"
 
 typedef enum : NSUInteger {
     RequestNormalStatus,    //0 正常状态
