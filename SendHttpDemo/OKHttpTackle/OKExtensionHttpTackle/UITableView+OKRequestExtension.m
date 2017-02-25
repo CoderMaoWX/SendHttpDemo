@@ -8,7 +8,7 @@
 
 #import "UITableView+OKRequestExtension.h"
 #import "OKHttpRequestModel.h"
-#import "OKCommonTipView.h"
+#import "OKRequestTipBgView.h"
 #import <AFNetworkReachabilityManager.h>
 
 //状态栏高度 (电池栏)
@@ -214,6 +214,14 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
                     [self.mj_footer endRefreshingWithNoMoreData];
                     self.mj_footer.hidden = YES;
                 }
+            } else if([((NSDictionary *)responseData).allKeys containsObject:kRequestDataKey]){
+                NSArray *dataArr = responseData[kRequestDataKey];
+                if ([dataArr isKindOfClass:[NSArray class]] && dataArr.count>0) {
+                    self.mj_footer.hidden = NO;
+                } else {
+                    [self.mj_footer endRefreshingWithNoMoreData];
+                    self.mj_footer.hidden = YES;
+                }
             } else {
                 self.mj_footer.hidden = NO;
             }
@@ -298,7 +306,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     
     //这里防止表格有偏移量，一定要设置y的起始位置为0
     CGRect rect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-    UIView *tipBgView = [OKCommonTipView tipViewByFrame:rect
+    UIView *tipBgView = [OKRequestTipBgView tipViewByFrame:rect
                                            tipImageName:imageName
                                                 tipText:tipText
                                             actionTitle:actionTitle
@@ -312,7 +320,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 - (void)removeOldTipBgView
 {
     for (UIView *tempView in self.subviews) {
-        if ([tempView isKindOfClass:[OKCommonTipView class]] ||
+        if ([tempView isKindOfClass:[OKRequestTipBgView class]] ||
             tempView.tag == kRequestTipViewTag) {
             [tempView removeFromSuperview];
             break;

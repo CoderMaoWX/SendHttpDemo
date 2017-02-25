@@ -21,6 +21,13 @@
 
 @implementation DemoViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"多功能请求工具";
+}
+
 
 - (IBAction)sendListHttpRequestAction:(id)sender
 {

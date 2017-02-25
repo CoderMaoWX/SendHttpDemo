@@ -11,7 +11,7 @@
 		A30840F61E606B4D00C4C1C4 /* OKBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30840EE1E606B4D00C4C1C4 /* OKBaseViewController.m */; };
 		A308410C1E606DC200C4C1C4 /* OKHttpRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A30840FE1E606DC200C4C1C4 /* OKHttpRequestModel.m */; };
 		A308410D1E606DC200C4C1C4 /* OKHttpRequestTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841001E606DC200C4C1C4 /* OKHttpRequestTools.m */; };
-		A308410E1E606DC200C4C1C4 /* OKCommonTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841031E606DC200C4C1C4 /* OKCommonTipView.m */; };
+		A308410E1E606DC200C4C1C4 /* OKRequestTipBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841031E606DC200C4C1C4 /* OKRequestTipBgView.m */; };
 		A308410F1E606DC200C4C1C4 /* OKFMDBTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841051E606DC200C4C1C4 /* OKFMDBTool.m */; };
 		A30841101E606DC200C4C1C4 /* OKHttpRequestModel+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841071E606DC200C4C1C4 /* OKHttpRequestModel+OKExtension.m */; };
 		A30841111E606DC200C4C1C4 /* OKHttpRequestTools+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841091E606DC200C4C1C4 /* OKHttpRequestTools+OKExtension.m */; };
@@ -35,8 +35,8 @@
 		A30840FE1E606DC200C4C1C4 /* OKHttpRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKHttpRequestModel.m; sourceTree = "<group>"; };
 		A30840FF1E606DC200C4C1C4 /* OKHttpRequestTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKHttpRequestTools.h; sourceTree = "<group>"; };
 		A30841001E606DC200C4C1C4 /* OKHttpRequestTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKHttpRequestTools.m; sourceTree = "<group>"; };
-		A30841021E606DC200C4C1C4 /* OKCommonTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKCommonTipView.h; sourceTree = "<group>"; };
-		A30841031E606DC200C4C1C4 /* OKCommonTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKCommonTipView.m; sourceTree = "<group>"; };
+		A30841021E606DC200C4C1C4 /* OKRequestTipBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequestTipBgView.h; sourceTree = "<group>"; };
+		A30841031E606DC200C4C1C4 /* OKRequestTipBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequestTipBgView.m; sourceTree = "<group>"; };
 		A30841041E606DC200C4C1C4 /* OKFMDBTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKFMDBTool.h; sourceTree = "<group>"; };
 		A30841051E606DC200C4C1C4 /* OKFMDBTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKFMDBTool.m; sourceTree = "<group>"; };
 		A30841061E606DC200C4C1C4 /* OKHttpRequestModel+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OKHttpRequestModel+OKExtension.h"; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 			children = (
 				A30841041E606DC200C4C1C4 /* OKFMDBTool.h */,
 				A30841051E606DC200C4C1C4 /* OKFMDBTool.m */,
-				A30841021E606DC200C4C1C4 /* OKCommonTipView.h */,
-				A30841031E606DC200C4C1C4 /* OKCommonTipView.m */,
+				A30841021E606DC200C4C1C4 /* OKRequestTipBgView.h */,
+				A30841031E606DC200C4C1C4 /* OKRequestTipBgView.m */,
 				A308410A1E606DC200C4C1C4 /* UITableView+OKRequestExtension.h */,
 				A308410B1E606DC200C4C1C4 /* UITableView+OKRequestExtension.m */,
 				A30841061E606DC200C4C1C4 /* OKHttpRequestModel+OKExtension.h */,
@@ -311,7 +311,7 @@
 				A308410F1E606DC200C4C1C4 /* OKFMDBTool.m in Sources */,
 				A308410D1E606DC200C4C1C4 /* OKHttpRequestTools.m in Sources */,
 				A30841161E60747800C4C1C4 /* DemoViewController.m in Sources */,
-				A308410E1E606DC200C4C1C4 /* OKCommonTipView.m in Sources */,
+				A308410E1E606DC200C4C1C4 /* OKRequestTipBgView.m in Sources */,
 				B5EC7E181E0BD01300ABA5D1 /* AppDelegate.m in Sources */,
 				A30840F61E606B4D00C4C1C4 /* OKBaseViewController.m in Sources */,
 				A30841101E606DC200C4C1C4 /* OKHttpRequestModel+OKExtension.m in Sources */,

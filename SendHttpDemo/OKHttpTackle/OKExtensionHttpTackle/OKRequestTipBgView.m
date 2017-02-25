@@ -6,7 +6,7 @@
 //  Copyright © 2016年 okdeer. All rights reserved.
 //
 
-#import "OKCommonTipView.h"
+#import "OKRequestTipBgView.h"
 
 #define UIColorFromHex(hexValue)            ([UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0])
 
@@ -70,7 +70,7 @@
 
 @end
 
-@implementation OKCommonTipView
+@implementation OKRequestTipBgView
 
 /**
  *  根据类型显示提示view
@@ -81,7 +81,7 @@
                actionTitle:(NSString *)actionTitle
                actionBlock:(void(^)())touchBlock
 {
-    OKCommonTipView *tipBgView = [[OKCommonTipView alloc] initWithFrame:frame];
+    OKRequestTipBgView *tipBgView = [[OKRequestTipBgView alloc] initWithFrame:frame];
     tipBgView.tag = kRequestTipViewTag;
     tipBgView.backgroundColor = UIColorFromHex(0xf5f6f8);
     

@@ -27,7 +27,7 @@
 @end
 
 
-@interface OKCommonTipView : UIView
+@interface OKRequestTipBgView : UIView
 
 //当前提示view在父视图上的tag
 #define kRequestTipViewTag      2016
@@ -42,7 +42,7 @@
  @param touchBlock 点击按钮回调Block
  @return 提示空白view
  */
-+ (OKCommonTipView *)tipViewByFrame:(CGRect)frame
++ (OKRequestTipBgView *)tipViewByFrame:(CGRect)frame
                        tipImageName:(NSString *)imageName
                             tipText:(id)tipText
                         actionTitle:(NSString *)actionTitle

@@ -8,7 +8,7 @@
 
 #import "OKHttpRequestTools+OKExtension.h"
 #import <AFNetworking.h>
-#import "OKCommonTipView.h"
+#import "OKRequestTipBgView.h"
 #import "OKFMDBTool.h"
 #import <MBProgressHUD.h>
 
