@@ -8,11 +8,11 @@ s.license      = "MIT"
 s.author             = { "luocheng" => "maowangxin_2013@163.com" }
 s.social_media_url   = "http://www.jianshu.com/u/c4ac9f9adf58"
 s.source       = { :git => "https://github.com/luocheng2013/SendHttpDemo.git", :tag => s.version }
+s.ios.source_files  = 'OKHttpTackle/OKBaseHttpTackle/*.{h,m},OKHttpTackle/OKExtensionHttpTackle/*.{h,m}'
+s.resources = "OKHttpTackle/OKHttpTackle.bundle"
 s.requires_arc = true
 s.dependency 'AFNetworking'
 s.dependency 'MBProgressHUD'
 s.dependency 'FMDB', '~> 2.6.2'
 s.dependency 'MJRefresh', '~> 3.1.12'
-s.source_files  = 'OKHttpTackle/OKBaseHttpTackle/*,OKHttpTackle/OKExtensionHttpTackle/*'
-s.resources = "OKHttpTackle/OKHttpTackle.bundle"
 end
