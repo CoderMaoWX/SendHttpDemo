@@ -1,12 +1,12 @@
 //
-//  UITableView+OKRequestExtension.m
-//  okdeer-commonLibrary
+//  UIScrollView+OKRequestExtension.m
+//  SendHttpDemo
 //
-//  Created by mao wangxin on 2016/12/28.
-//  Copyright © 2016年 okdeer. All rights reserved.
+//  Created by mao wangxin on 2017/4/17.
+//  Copyright © 2017年 okdeer. All rights reserved.
 //
 
-#import "UITableView+OKRequestExtension.h"
+#import "UIScrollView+OKRequestExtension.h"
 #import "OKHttpRequestModel.h"
 #import "OKRequestTipBgView.h"
 #import "AFNetworkReachabilityManager.h"
@@ -36,9 +36,9 @@ static char const * const kEmptyImgKey    = "kEmptyImgKey";
 static char const * const kErrorImgKey    = "kErrorImgKey";
 static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 
-@implementation UITableView (OKRequestExtension)
+@implementation UIScrollView (OKRequestExtension)
 
-+ (instancetype)plainTableView
++ (UITableView *)plainTableView
 {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, KSystemNavBarHeight+20, Screen_Width, Screen_Height-KSystemNavBarHeight-20) style:UITableViewStylePlain];
     tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -50,7 +50,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     return tableView;
 }
 
-+ (instancetype)groupedTableView
++ (UITableView *)groupedTableView
 {
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, KSystemNavBarHeight+20, Screen_Width, Screen_Height-KSystemNavBarHeight-20) style:UITableViewStyleGrouped];
     tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
@@ -127,7 +127,10 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
         WEAKSELF(weakSelf)
         self.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             
-            //每次下拉刷新时先结束上啦
+            //1.先移除页面上已有的提示视图
+            [weakSelf removeOldTipBgView];
+            
+            //2.每次下拉刷新时先结束上啦
             [weakSelf.mj_footer endRefreshing];
             
             headerBlock();
@@ -143,7 +146,6 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
         self.mj_footer.hidden = YES;
     }
 }
-
 
 #pragma mark - 给表格添加上请求失败提示事件
 
@@ -165,21 +167,14 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     
     //如果请求成功处理
     if ([responseData isKindOfClass:[NSDictionary class]]) {
-        
-        //页面没有数据
-        if (self.numberOfSections == 0 || (self.numberOfSections == 1 && [self numberOfRowsInSection:0] == 0)) {
+        if ([self contentViewIsEmptyData]) { //页面没有数据
             
             //根据状态,显示背景提示Viwe
             if (![AFNetworkReachabilityManager sharedManager].reachable) {//没有网络
                 WEAKSELF(weakSelf)
                 [self showTipBotton:YES TipStatus:RequesErrorNoNetWork tipString:nil clickBlock:^{
-                    if (weakSelf.mj_header) {
-                        //1.先移除页面上已有的提示CCParkingRequestTipView视图
-                        [weakSelf removeOldTipBgView];
-                        
-                        //2.开始走下拉请求
-                        [weakSelf.mj_header beginRefreshing];
-                    }
+                    //移除提示视图,重新请求
+                    [weakSelf removeTipViewAndRefresh];
                 }];
                 
             } else {
@@ -187,11 +182,9 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
             }
             
         } else { //页面有数据
-            
             //隐藏背景提示Viwe
             [self showTipBotton:NO TipStatus:RequestNormalStatus tipString:nil clickBlock:nil];
             
-            //控制上啦控件的显示
             if (!self.mj_footer) return;
             
             //控制上啦控件显示的分页逻辑
@@ -214,56 +207,47 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
                     [self.mj_footer endRefreshingWithNoMoreData];
                     self.mj_footer.hidden = YES;
                 }
-            } else if([((NSDictionary *)responseData).allKeys containsObject:kRequestDataKey]){
-                NSArray *dataArr = responseData[kRequestDataKey];
-                if ([dataArr isKindOfClass:[NSArray class]] && dataArr.count>0) {
-                    self.mj_footer.hidden = NO;
-                } else {
-                    [self.mj_footer endRefreshingWithNoMoreData];
-                    self.mj_footer.hidden = YES;
-                }
             } else {
                 self.mj_footer.hidden = NO;
             }
         }
         
     } else if([responseData isKindOfClass:[NSError class]]){ //请求失败处理
-        NSError *error = (NSError *)responseData;
-        
-        //页面没有数据
-        if (self.numberOfSections == 0 || (self.numberOfSections == 1 && [self numberOfRowsInSection:0] == 0)) {
+        NSError *error = (NSError *)responseData;        
+        if ([self contentViewIsEmptyData]) { //页面没有数据
             
             //根据状态,显示背景提示Viwe
             WEAKSELF(weakSelf)
             //没有网络
             if (![AFNetworkReachabilityManager sharedManager].reachable) {
                 [self showTipBotton:YES TipStatus:RequesErrorNoNetWork tipString:NetworkConnectFailTip clickBlock:^{
-                    if (weakSelf.mj_header) {
-                        //1.先移除页面上已有的提示CCParkingRequestTipView视图
-                        [weakSelf removeOldTipBgView];
-                        
-                        //2.开始走下拉请求
-                        [weakSelf.mj_header beginRefreshing];
-                    }
+                    //移除提示视图,重新请求
+                    [weakSelf removeTipViewAndRefresh];
                 }];
-                
             } else {
                 [self showTipBotton:YES TipStatus:RequestFailStatus tipString:error.domain clickBlock:^{
-                    if (weakSelf.mj_header) {
-                        //1.先移除页面上已有的提示CCParkingRequestTipView视图
-                        [weakSelf removeOldTipBgView];
-                        
-                        //2.开始走下拉请求
-                        [weakSelf.mj_header beginRefreshing];
-                    }
+                    //移除提示视图,重新请求
+                    [weakSelf removeTipViewAndRefresh];
                 }];
             }
-            
         } else { //页面有数据
-            
             //隐藏背景提示Viwe
             [self showTipBotton:NO TipStatus:RequestFailStatus tipString:error.domain clickBlock:nil];
         }
+    }
+}
+
+/**
+ * 移除提示视图,重新请求
+ */
+- (void)removeTipViewAndRefresh
+{
+    if (self.mj_header) {
+        //1.先移除页面上已有的提示视图
+        [self removeOldTipBgView];
+        
+        //2.开始走下拉请求
+        [self.mj_header beginRefreshing];
     }
 }
 
@@ -307,10 +291,11 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
     //这里防止表格有偏移量，一定要设置y的起始位置为0
     CGRect rect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
     UIView *tipBgView = [OKRequestTipBgView tipViewByFrame:rect
-                                           tipImageName:imageName
-                                                tipText:tipText
-                                            actionTitle:actionTitle
-                                            actionBlock:blk];
+                                              tipImageName:imageName
+                                                   tipText:tipText
+                                               actionTitle:actionTitle
+                                               actionBlock:blk];
+    tipBgView.backgroundColor = self.backgroundColor;
     [self addSubview:tipBgView];
 }
 
@@ -327,5 +312,41 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
         }
     }
 }
+
+/**
+ * 判断页面是否有数据
+ */
+- (BOOL)contentViewIsEmptyData
+{
+    BOOL isEmpty = NO;
+    
+    //如果是UITableView
+    if ([self isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self;
+        if (tableView.numberOfSections==0 ||
+            (tableView.numberOfSections==1 && [tableView numberOfRowsInSection:0] == 0)) {
+            isEmpty = YES;
+        }
+        
+    } else if ([self isKindOfClass:[UICollectionView class]]) {
+        UICollectionView *collectionView = (UICollectionView *)self;
+        if (collectionView.numberOfSections==0 ||
+            (collectionView.numberOfSections==1 && [collectionView numberOfItemsInSection:0] == 0)) {
+            isEmpty = YES;
+        }
+    } else {
+        NSInteger emptyCount = 0;
+        for (UIView *subview in self.subviews) {
+            if (subview.hidden || subview.alpha == 0) {
+                emptyCount ++;
+            }
+        }
+        if (self.subviews.count==0 || self.subviews.count == emptyCount) {
+            isEmpty = YES;
+        }
+    }
+    return isEmpty;
+}
+
 
 @end

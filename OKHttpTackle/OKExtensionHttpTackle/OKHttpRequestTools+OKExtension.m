@@ -71,8 +71,8 @@ static char const * const kRequestTimeCountKey    = "kRequestTimeCountKey";
         }
         
         //如果请求完成后需要判断页面表格下拉控件,分页,空白提示页的状态
-        UITableView *tableView = requestModel.dataTableView;
-        if (tableView && [tableView isKindOfClass:[UITableView class]]) {
+        UIScrollView *tableView = requestModel.dataTableView;
+        if (tableView && [tableView isKindOfClass:[UIScrollView class]]) {
             [tableView showRequestTip:error];
         }
         
@@ -126,8 +126,8 @@ static char const * const kRequestTimeCountKey    = "kRequestTimeCountKey";
             }
             
             /** <2>.如果请求完成后需要判断页面表格下拉控件,分页,空白提示页的状态 */
-            UITableView *tableView = requestModel.dataTableView;
-            if (tableView && [tableView isKindOfClass:[UITableView class]]) {
+            UIScrollView *tableView = requestModel.dataTableView;
+            if (tableView && [tableView isKindOfClass:[UIScrollView class]]) {
                 [tableView showRequestTip:responseObject];
             }
             

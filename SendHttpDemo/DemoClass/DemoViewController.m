@@ -8,11 +8,14 @@
 
 #import "DemoViewController.h"
 #import "ListViewController.h"
+#import "MyCollectionDataVC.h"
 #import "OKRequestTipBgView.h"
+
 //发送封装多功能请求用到
 #import "OKHttpRequestTools+OKExtension.h"
 //发送普通请求用到
 #import "OKHttpRequestTools.h"
+
 //请求测试地址1
 #define TestRequestUrl1      @"http://api.cnez.info/product/getProductList/1"
 //请求测试地址2
@@ -22,16 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"多功能请求工具";
 }
 
-
 - (IBAction)sendListHttpRequestAction:(id)sender
 {
     ListViewController *listVC = [[ListViewController alloc] init];
-    listVC.title = @"测试表格分页请求";
+    listVC.title = @"UItableView测试";
     listVC.hidesBottomBarWhenPushed = YES;
     listVC.edgesForExtendedLayout = UIRectEdgeNone;
     [self.navigationController pushViewController:listVC animated:YES];
@@ -42,6 +43,14 @@
  */
 - (IBAction)sendNomalHttpRequestAction:(id)sender
 {
+    MyCollectionDataVC *listVC = [[MyCollectionDataVC alloc] init];
+    listVC.title = @"UICollectionView测试";
+    listVC.hidesBottomBarWhenPushed = YES;
+    listVC.edgesForExtendedLayout = UIRectEdgeNone;
+    [self.navigationController pushViewController:listVC animated:YES];
+    return;
+    
+    
     //    //测试同时发送50个请求, 底层会自动管理
     //    for (int i=0; i<20; i++) {
     //

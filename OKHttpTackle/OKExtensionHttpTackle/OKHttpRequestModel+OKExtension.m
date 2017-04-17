@@ -34,12 +34,12 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 
 #pragma mark - ========== 页面上有表格如果传此参数,请求完成后会帮你刷新页面,控制下拉刷新状态等 ==========
 
-- (void)setDataTableView:(UITableView *)dataTableView
+- (void)setDataTableView:(UIScrollView *)dataTableView
 {
     objc_setAssociatedObject(self, kDataTableViewKey, dataTableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UITableView *)dataTableView
+- (UIScrollView *)dataTableView
 {
     return objc_getAssociatedObject(self, kDataTableViewKey);
 }

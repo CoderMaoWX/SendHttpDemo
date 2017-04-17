@@ -7,7 +7,7 @@
 //
 
 #import "OKHttpRequestTools.h"
-#import "UITableView+OKRequestExtension.h"
+#import "UIScrollView+OKRequestExtension.h"
 #import "OKHttpRequestModel+OKExtension.h"
 
 /**

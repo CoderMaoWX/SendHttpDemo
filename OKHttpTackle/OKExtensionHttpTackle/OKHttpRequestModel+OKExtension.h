@@ -26,7 +26,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIView *loadView;
 
 /** 页面上有表格如果传此参数,请求完成后会自动刷新页面,控制表格下拉刷新状态, 请求失败,空数据等 会自动添加空白页 */
-@property (nonatomic, strong) UITableView *dataTableView;
+@property (nonatomic, strong) UIScrollView *dataTableView;
 
 /** 是否在底层提示失败信息 (默认提示) */
 @property (nonatomic, assign) BOOL forbidTipErrorInfo;

@@ -11,7 +11,9 @@
 
 #define WEAKSELF(weakSelf)  __weak __typeof(&*self)weakSelf = self;
 
-#define TestRequestUrl      @"http://lib3.wap.zol.com.cn/index.php?c=Advanced_List_V1&keyword=808.8GB%205400%E8%BD%AC%2032MB&noParam=1&priceId=noPrice&num=15"
+static NSString *kTestRequestUrl = @"http://lib33.wap.zol.com.cn/index.php?c=Advanced_List_V1&keyword=808.8GB%205400%E8%BD%AC%2032MB&noParam=1&priceId=noPrice&num=15";
+
+static NSString * cellID = @"CollectionCellID";
 
 @interface ListViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新数据" style:UIBarButtonItemStylePlain target:self action:@selector(navBarItemAction)];
     
     self.tableView.rowHeight = 60;
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -34,13 +35,17 @@
     } footerBlock:^{
         [weakSelf requestData:NO];
     }];
+    
+    //重新请求数据
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"刷新数据" style:UIBarButtonItemStylePlain target:self action:@selector(refreshDataAction)];
 }
 
 /**
- 请求数据
+ * 刷新数据
  */
-- (void)navBarItemAction
+- (void)refreshDataAction
 {
+    kTestRequestUrl = @"http://lib3.wap.zol.com.cn/index.php?c=Advanced_List_V1&keyword=808.8GB%205400%E8%BD%AC%2032MB&noParam=1&priceId=noPrice&num=15";
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -79,7 +84,7 @@
     OKHttpRequestModel *model = [[OKHttpRequestModel alloc] init];
     model.requestType = HttpRequestTypeGET;
     model.parameters = info;
-    model.requestUrl = TestRequestUrl; //可以试着把地址写错,测试请求失败的场景
+    model.requestUrl = kTestRequestUrl; //可以试着把地址写错,测试请求失败的场景
     
     model.loadView = self.view;
     model.dataTableView = self.tableView;
@@ -92,9 +97,9 @@
         if (firstPage) {
             [self.tableDataArr removeAllObjects];
         }
-        
         [self.tableDataArr addObjectsFromArray:returnValue[@"data"]];
         [self.tableView reloadData];
+        
     } failure:^(NSError *error) {
         if (!firstPage) self.pageNum --;
     }];
