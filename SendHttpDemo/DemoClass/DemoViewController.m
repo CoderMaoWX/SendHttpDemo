@@ -10,7 +10,6 @@
 #import "ListViewController.h"
 #import "MyCollectionDataVC.h"
 #import "OKRequestTipBgView.h"
-
 //发送封装多功能请求用到
 #import "OKHttpRequestTools+OKExtension.h"
 //发送普通请求用到
