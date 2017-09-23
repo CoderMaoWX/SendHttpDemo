@@ -13,10 +13,7 @@
 		A30841171E60747800C4C1C4 /* DemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A30841151E60747800C4C1C4 /* DemoViewController.xib */; };
 		A308411B1E60765700C4C1C4 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A30841191E60765700C4C1C4 /* ListViewController.m */; };
 		A308411C1E60765700C4C1C4 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A308411A1E60765700C4C1C4 /* ListViewController.xib */; };
-		A399EB5C1F76A0D20033B1C4 /* SendHttpDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A399EB5B1F76A0D20033B1C4 /* SendHttpDemoTests.m */; };
-		A399EB631F76A9470033B1C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E221E0BD01300ABA5D1 /* Assets.xcassets */; };
 		A399EB6B1F76ADB00033B1C4 /* MyUtilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A399EB6A1F76ADB00033B1C4 /* MyUtilViewController.m */; };
-		A399EB6C1F76ADB00033B1C4 /* MyUtilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A399EB6A1F76ADB00033B1C4 /* MyUtilViewController.m */; };
 		A3F0A6AE1E61641A0077E718 /* OKHttpRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0A69F1E61641A0077E718 /* OKHttpRequestModel.m */; };
 		A3F0A6AF1E61641A0077E718 /* OKHttpRequestTools.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0A6A11E61641A0077E718 /* OKHttpRequestTools.m */; };
 		A3F0A6B01E61641A0077E718 /* OKFMDBTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A3F0A6A41E61641A0077E718 /* OKFMDBTool.m */; };
@@ -33,16 +30,6 @@
 		B5EC7E561E0BE50800ABA5D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E241E0BD01300ABA5D1 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A399EB5E1F76A0D20033B1C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B5EC7E081E0BD01300ABA5D1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B5EC7E0F1E0BD01300ABA5D1;
-			remoteInfo = SendHttpDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		5656FFA89D33952141C87C4E /* Pods-SendHttpDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SendHttpDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SendHttpDemo/Pods-SendHttpDemo.release.xcconfig"; sourceTree = "<group>"; };
 		630A9DB327DEAD43609A1E07 /* libPods-SendHttpDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SendHttpDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +41,6 @@
 		A30841181E60765700C4C1C4 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		A30841191E60765700C4C1C4 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		A308411A1E60765700C4C1C4 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
-		A399EB591F76A0D20033B1C4 /* SendHttpDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SendHttpDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A399EB5B1F76A0D20033B1C4 /* SendHttpDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendHttpDemoTests.m; sourceTree = "<group>"; };
 		A399EB5D1F76A0D20033B1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A399EB691F76ADB00033B1C4 /* MyUtilViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyUtilViewController.h; sourceTree = "<group>"; };
@@ -89,13 +75,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A399EB561F76A0D20033B1C4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5EC7E0D1E0BD01300ABA5D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -208,7 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				B5EC7E101E0BD01300ABA5D1 /* SendHttpDemo.app */,
-				A399EB591F76A0D20033B1C4 /* SendHttpDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,24 +216,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A399EB581F76A0D20033B1C4 /* SendHttpDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A399EB601F76A0D20033B1C4 /* Build configuration list for PBXNativeTarget "SendHttpDemoTests" */;
-			buildPhases = (
-				A399EB551F76A0D20033B1C4 /* Sources */,
-				A399EB561F76A0D20033B1C4 /* Frameworks */,
-				A399EB571F76A0D20033B1C4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A399EB5F1F76A0D20033B1C4 /* PBXTargetDependency */,
-			);
-			name = SendHttpDemoTests;
-			productName = SendHttpDemoTests;
-			productReference = A399EB591F76A0D20033B1C4 /* SendHttpDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		B5EC7E0F1E0BD01300ABA5D1 /* SendHttpDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B5EC7E2A1E0BD01300ABA5D1 /* Build configuration list for PBXNativeTarget "SendHttpDemo" */;
@@ -285,12 +245,6 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = okdeer;
 				TargetAttributes = {
-					A399EB581F76A0D20033B1C4 = {
-						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = YKA3Z85KP7;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B5EC7E0F1E0BD01300ABA5D1;
-					};
 					B5EC7E0F1E0BD01300ABA5D1 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = YKA3Z85KP7;
@@ -312,20 +266,11 @@
 			projectRoot = "";
 			targets = (
 				B5EC7E0F1E0BD01300ABA5D1 /* SendHttpDemo */,
-				A399EB581F76A0D20033B1C4 /* SendHttpDemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A399EB571F76A0D20033B1C4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A399EB631F76A9470033B1C4 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5EC7E0E1E0BD01300ABA5D1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,15 +341,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A399EB551F76A0D20033B1C4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A399EB6C1F76ADB00033B1C4 /* MyUtilViewController.m in Sources */,
-				A399EB5C1F76A0D20033B1C4 /* SendHttpDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B5EC7E0C1E0BD01300ABA5D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,14 +364,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		A399EB5F1F76A0D20033B1C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B5EC7E0F1E0BD01300ABA5D1 /* SendHttpDemo */;
-			targetProxy = A399EB5E1F76A0D20033B1C4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		B5EC7E241E0BD01300ABA5D1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -448,48 +376,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A399EB611F76A0D20033B1C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = SendHttpDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke.SendHttpDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SendHttpDemo.app/SendHttpDemo";
-			};
-			name = Debug;
-		};
-		A399EB621F76A0D20033B1C4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = SendHttpDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke.SendHttpDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SendHttpDemo.app/SendHttpDemo";
-			};
-			name = Release;
-		};
 		B5EC7E281E0BD01300ABA5D1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -637,15 +523,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A399EB601F76A0D20033B1C4 /* Build configuration list for PBXNativeTarget "SendHttpDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A399EB611F76A0D20033B1C4 /* Debug */,
-				A399EB621F76A0D20033B1C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B5EC7E0B1E0BD01300ABA5D1 /* Build configuration list for PBXProject "SendHttpDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
