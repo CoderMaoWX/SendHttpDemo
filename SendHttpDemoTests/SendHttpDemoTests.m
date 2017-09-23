@@ -7,17 +7,17 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "DemoViewController.h"
+#import "MyUtilViewController.h"
 
 @interface SendHttpDemoTests : XCTestCase
-@property (nonatomic, strong) DemoViewController *vc;
+@property (nonatomic, strong) MyUtilViewController *vc;
 @end
 
 @implementation SendHttpDemoTests
 
 - (void)setUp {
     [super setUp];
-    _vc = [[DemoViewController alloc] init];
+    _vc = [[MyUtilViewController alloc] init];
 }
 
 - (void)tearDown {
