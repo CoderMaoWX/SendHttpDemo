@@ -63,7 +63,7 @@
     //    [self sendCommomReq];
     
     //测试发送普通请求
-    [self sendMultifunctionReq:0];
+//    [self sendMultifunctionReq:0];
 }
 
 /**

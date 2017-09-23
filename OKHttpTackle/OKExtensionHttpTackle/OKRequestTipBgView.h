@@ -49,6 +49,6 @@
                           tipImageName:(NSString *)imageName
                                tipText:(id)tipText
                            actionTitle:(NSString *)actionTitle
-                           actionBlock:(void(^)())touchBlock;
+                           actionBlock:(void(^)(void))touchBlock;
 
 @end

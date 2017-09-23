@@ -259,7 +259,7 @@ static char const * const kNetErrorStrKey = "kNetErrorStrKey";
 - (void)showTipBotton:(BOOL)show
             TipStatus:(TableVieTipStatus)state
             tipString:(NSString *)tipString
-           clickBlock:(void(^)())blk
+           clickBlock:(void(^)(void))blk
 {
     //先移除页面上已有的提示CCParkingRequestTipView视图
     [self removeOldTipBgView];

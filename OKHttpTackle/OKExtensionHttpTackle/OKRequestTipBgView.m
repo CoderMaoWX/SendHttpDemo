@@ -11,7 +11,7 @@
 #define UIColorFromHex(hexValue)            ([UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0])
 
 @interface OKRequestTipBgView ()
-@property (nonatomic, copy) void (^touchBlock)();
+@property (nonatomic, copy) void (^touchBlock)(void);
 @end
 
 @implementation MBProgressHUD (Extension)
@@ -107,7 +107,7 @@
               tipImageName:(NSString *)imageName
                    tipText:(id)tipText
                actionTitle:(NSString *)actionTitle
-               actionBlock:(void(^)())touchBlock
+               actionBlock:(void(^)(void))touchBlock
 {
     OKRequestTipBgView *tipBgView = [[OKRequestTipBgView alloc] initCustomView:frame tipImageName:imageName tipText:tipText actionTitle:actionTitle actionBlock:touchBlock];
     tipBgView.tag = kRequestTipViewTag;
@@ -120,7 +120,7 @@
           tipImageName:(NSString *)imageName
                tipText:(id)tipText
            actionTitle:(NSString *)actionTitle
-           actionBlock:(void(^)())touchBlock
+                   actionBlock:(void(^)(void))touchBlock
 {
     if (self == [super initWithFrame:frame]) {
         self.touchBlock = touchBlock;
