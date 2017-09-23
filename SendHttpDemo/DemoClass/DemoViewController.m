@@ -49,7 +49,6 @@
     [self.navigationController pushViewController:listVC animated:YES];
     return;
     
-    
     //    //测试同时发送50个请求, 底层会自动管理
     //    for (int i=0; i<20; i++) {
     //
@@ -92,7 +91,6 @@
     }];
     
     NSLog(@"发送请求中===%zd===%@",tag,task);
-    
     //    if (tag == 49) {
     //        NSLog(@"取消所有请求后, 底层不会回调成功或失败到页面上来");
     //        [self cancelRequestOperations];
