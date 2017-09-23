@@ -12,7 +12,7 @@ target 'SendHttpDemo' do
   pod 'MJRefresh', '~> 3.1.12'
 
   # Pods for testing
-  target 'OkdeerSellerTests' do
+  target 'SendHttpDemoTests' do
     inherit! :search_paths
   end
 
