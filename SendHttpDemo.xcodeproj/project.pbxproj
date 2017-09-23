@@ -31,7 +31,6 @@
 		B5EC7E181E0BD01300ABA5D1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5EC7E171E0BD01300ABA5D1 /* AppDelegate.m */; };
 		B5EC7E231E0BD01300ABA5D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E221E0BD01300ABA5D1 /* Assets.xcassets */; };
 		B5EC7E561E0BE50800ABA5D1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5EC7E241E0BD01300ABA5D1 /* LaunchScreen.storyboard */; };
-		D04718B27EC8A6FFE5D03658 /* libPods-SendHttpDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630A9DB327DEAD43609A1E07 /* libPods-SendHttpDemoTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +46,6 @@
 /* Begin PBXFileReference section */
 		5656FFA89D33952141C87C4E /* Pods-SendHttpDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SendHttpDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SendHttpDemo/Pods-SendHttpDemo.release.xcconfig"; sourceTree = "<group>"; };
 		630A9DB327DEAD43609A1E07 /* libPods-SendHttpDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SendHttpDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		91112EAC0DC6DA28C62F867F /* Pods-SendHttpDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SendHttpDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SendHttpDemoTests/Pods-SendHttpDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A30840ED1E606B4D00C4C1C4 /* OKBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKBaseViewController.h; sourceTree = "<group>"; };
 		A30840EE1E606B4D00C4C1C4 /* OKBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKBaseViewController.m; sourceTree = "<group>"; };
 		A30841131E60747800C4C1C4 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 		B5EC7E221E0BD01300ABA5D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5EC7E251E0BD01300ABA5D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5EC7E271E0BD01300ABA5D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C70B005760B7B5F51FB61DE6 /* Pods-SendHttpDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SendHttpDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SendHttpDemoTests/Pods-SendHttpDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1B73B4EEA701B596EC9974C /* libPods-SendHttpDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SendHttpDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBF21D2FDA10F3278B909180 /* Pods-SendHttpDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SendHttpDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SendHttpDemo/Pods-SendHttpDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,7 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D04718B27EC8A6FFE5D03658 /* libPods-SendHttpDemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,8 +121,6 @@
 			children = (
 				EBF21D2FDA10F3278B909180 /* Pods-SendHttpDemo.debug.xcconfig */,
 				5656FFA89D33952141C87C4E /* Pods-SendHttpDemo.release.xcconfig */,
-				91112EAC0DC6DA28C62F867F /* Pods-SendHttpDemoTests.debug.xcconfig */,
-				C70B005760B7B5F51FB61DE6 /* Pods-SendHttpDemoTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -248,12 +242,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A399EB601F76A0D20033B1C4 /* Build configuration list for PBXNativeTarget "SendHttpDemoTests" */;
 			buildPhases = (
-				31C7B3A8B30C1DA738549394 /* [CP] Check Pods Manifest.lock */,
 				A399EB551F76A0D20033B1C4 /* Sources */,
 				A399EB561F76A0D20033B1C4 /* Frameworks */,
 				A399EB571F76A0D20033B1C4 /* Resources */,
-				472AC802E795B400538D2855 /* [CP] Embed Pods Frameworks */,
-				8E2E12F2AD74A097C9157371 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -351,54 +342,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		31C7B3A8B30C1DA738549394 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SendHttpDemoTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		472AC802E795B400538D2855 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SendHttpDemoTests/Pods-SendHttpDemoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8E2E12F2AD74A097C9157371 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SendHttpDemoTests/Pods-SendHttpDemoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8EF5984315F7C505ED8A9738 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -507,7 +450,6 @@
 /* Begin XCBuildConfiguration section */
 		A399EB611F76A0D20033B1C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91112EAC0DC6DA28C62F867F /* Pods-SendHttpDemoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -529,7 +471,6 @@
 		};
 		A399EB621F76A0D20033B1C4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C70B005760B7B5F51FB61DE6 /* Pods-SendHttpDemoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
