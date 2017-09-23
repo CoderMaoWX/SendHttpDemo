@@ -29,6 +29,16 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A399EB581F76A0D20033B1C4"
+               BuildableName = "SendHttpDemoTests.xctest"
+               BlueprintName = "SendHttpDemoTests"
+               ReferencedContainer = "container:SendHttpDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

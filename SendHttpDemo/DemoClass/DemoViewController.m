@@ -119,4 +119,16 @@
     NSLog(@"测试发送普通请求===%@",task);
 }
 
+/**
+ 判断传入一个数大于10
+ */
+- (BOOL)judgeNumGreaterTen:(NSInteger)number
+{
+    if (number > 10) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
