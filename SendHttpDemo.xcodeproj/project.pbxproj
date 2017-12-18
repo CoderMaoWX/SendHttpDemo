@@ -58,6 +58,7 @@
 		A3F0A6A91E61641A0077E718 /* OKRequestTipBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKRequestTipBgView.h; sourceTree = "<group>"; };
 		A3F0A6AA1E61641A0077E718 /* OKRequestTipBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKRequestTipBgView.m; sourceTree = "<group>"; };
 		A3F0A6AD1E61641A0077E718 /* OKHttpTackle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = OKHttpTackle.bundle; sourceTree = "<group>"; };
+		B54265E81FE7B10A00D61310 /* OKHttpTackle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OKHttpTackle.h; sourceTree = "<group>"; };
 		B5C448D01EA467DE00BE65B6 /* UIScrollView+OKRequestExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+OKRequestExtension.h"; sourceTree = "<group>"; };
 		B5C448D11EA467DE00BE65B6 /* UIScrollView+OKRequestExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+OKRequestExtension.m"; sourceTree = "<group>"; };
 		B5C448D61EA46C5800BE65B6 /* MyCollectionDataVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCollectionDataVC.h; sourceTree = "<group>"; };
@@ -139,6 +140,7 @@
 				A3F0A69D1E61641A0077E718 /* OKBaseHttpTackle */,
 				A3F0A6A21E61641A0077E718 /* OKExtensionHttpTackle */,
 				A3F0A6AD1E61641A0077E718 /* OKHttpTackle.bundle */,
+				B54265E81FE7B10A00D61310 /* OKHttpTackle.h */,
 			);
 			path = OKHttpTackle;
 			sourceTree = "<group>";

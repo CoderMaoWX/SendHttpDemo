@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "OKHttpTackle"
-s.version      = "0.0.1"
+s.version      = "0.0.2"
 s.ios.deployment_target = '7.0'
 s.summary      = "Multifunctional third party Library Based on AFNetworking package"
 s.homepage     = "https://github.com/luocheng2013/SendHttpDemo"
@@ -13,6 +13,7 @@ s.resource = "OKHttpTackle/OKHttpTackle.bundle"
 s.requires_arc = true
 s.dependency 'AFNetworking'
 s.dependency 'MBProgressHUD'
-s.dependency 'FMDB', '~> 2.6.2'
-s.dependency 'MJRefresh', '~> 3.1.12'
+s.dependency 'FMDB'
+s.dependency 'MJRefresh'
+s.dependency 'OKAlertContrActionSheet'
 end
