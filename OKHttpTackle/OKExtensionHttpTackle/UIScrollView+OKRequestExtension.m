@@ -119,7 +119,7 @@ static char const * const kActionBtnBlockKey        = "kActionBtnBlockKey";
 {
     UIImage *image = objc_getAssociatedObject(self, kReqEmptyTipImageKey);
     if (!image) {
-        image = [self getBundleImageByName:@"OKCommonFrameWorkImage.bundle/ok_empty_data_icon"];
+        image = [self getBundleImageByName:@"OKHttpTackle.bundle/ok_empty_data_icon"];
     }
     return image;
 }
@@ -148,7 +148,7 @@ static char const * const kActionBtnBlockKey        = "kActionBtnBlockKey";
 {
     UIImage *image = objc_getAssociatedObject(self, kReqFailTipImageKey);
     if (!image) {
-        image = [self getBundleImageByName:@"OKCommonFrameWorkImage.bundle/ok_loading_fail_icon"];
+        image = [self getBundleImageByName:@"OKHttpTackle.bundle/ok_loading_fail_icon"];
     }
     return image;
 }
@@ -177,7 +177,7 @@ static char const * const kActionBtnBlockKey        = "kActionBtnBlockKey";
 {
     UIImage *image = objc_getAssociatedObject(self, kNetErrorTipImageKey);
     if (!image) {
-        image = [self getBundleImageByName:@"OKCommonFrameWorkImage.bundle/ok_networkfail_icon"];
+        image = [self getBundleImageByName:@"OKHttpTackle.bundle/ok_networkfail_icon"];
     }
     return image;
 }
@@ -626,9 +626,13 @@ static char const * const kActionBtnBlockKey        = "kActionBtnBlockKey";
     if (self.automaticShowTipView) {
 
         /** 给表格添加请求失败提示事件
-         * <警告：这里一定要延迟，因为MJRefresh库也替换了reloadData方法，否则不能收起刷新控件>
+         * <警告：这里如果有MJRefresh下拉刷新控件, 一定要延迟，因为MJRefresh库也替换了reloadData方法，否则不能收起刷新控件>
          */
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat delay = 0.0;
+        if (self.mj_header || self.mj_footer) {
+            delay = 0.5;
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self showRequestTip:[NSDictionary new]];
         });
     }
