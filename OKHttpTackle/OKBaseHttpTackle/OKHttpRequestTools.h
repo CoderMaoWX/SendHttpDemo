@@ -1,6 +1,6 @@
 //
 //  CCHttpRequestTools.h
-//  okdeer-commonLibrary
+//  CommonFrameWork
 //
 //  Created by mao wangxin on 2016/12/21.
 //  Copyright © 2016年 okdeer. All rights reserved.
@@ -23,8 +23,8 @@ typedef void (^OKHttpFailureBlock) (NSError * error);
  @return 返回当前请求的对象
  */
 + (NSURLSessionDataTask *)sendOKRequest:(OKHttpRequestModel *)requestModel
-                              success:(OKHttpSuccessBlock)successBlock
-                              failure:(OKHttpFailureBlock)failureBlock;
+                                success:(OKHttpSuccessBlock)successBlock
+                                failure:(OKHttpFailureBlock)failureBlock;
 
 /**
  * 取消全局请求管理数组中所有请求操作, (可在注销,退出登录,内存警告时调用此方法)
@@ -32,3 +32,4 @@ typedef void (^OKHttpFailureBlock) (NSError * error);
 + (void)cancelGlobalAllReqMangerTask;
 
 @end
+

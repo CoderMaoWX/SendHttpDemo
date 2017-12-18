@@ -65,7 +65,7 @@ static NSString *kTestRequestUrl = @"http://lib33.wap.zol.com.cn/index.php?c=Adv
     self.params = info;
     
     OKHttpRequestModel *model = [[OKHttpRequestModel alloc] init];
-    model.requestType = HttpRequestTypeGET;
+    model.requestType = OKHttpRequestTypeGET;
     model.parameters = info;
     model.requestUrl = kTestRequestUrl; //可以试着把地址写错,测试请求失败的场景
     

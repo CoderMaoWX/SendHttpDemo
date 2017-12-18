@@ -1,6 +1,6 @@
 //
 //  CCFMDBTool.h
-//  okdeer-commonLibrary
+//  CommonFrameWork
 //
 //  Created by mao wangxin on 2016/12/21.
 //  Copyright (c) 2015年 Chehu. All rights reserved.
@@ -34,7 +34,7 @@ typedef enum : NSUInteger {
  *
  *  @return 是否保存成
  */
-+ (BOOL)saveDataToDB:(id)data byObjectId:(NSString *)objectId toTable:(DBNameType)tableNameType;
++ (BOOL)saveDataToDB:(id <NSCopying>)data byObjectId:(NSString *)objectId toTable:(DBNameType)tableNameType;
 
 
 #pragma mark - 获取数据操作
@@ -74,3 +74,4 @@ typedef enum : NSUInteger {
 
 
 @end
+

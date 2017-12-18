@@ -1,6 +1,6 @@
 //
 //  OKHttpRequestModel+OKExtension.m
-//  okdeer-commonLibrary
+//  CommonFrameWork
 //
 //  Created by mao wangxin on 2016/12/22.
 //  Copyright © 2016年 okdeer. All rights reserved.
@@ -9,12 +9,12 @@
 #import "OKHttpRequestModel+OKExtension.h"
 #import <objc/runtime.h>
 
-static char const * const kLoadViewKey              = "kLoadViewKey";
-static char const * const kDataTableViewKey         = "kDataTableViewKey";
-static char const * const kForbidTipErrorInfoKey    = "kForbidTipErrorInfoKey";
-static char const * const kAttemptRequestWhenFail   = "kAttemptRequestWhenFail";
-static char const * const kRequestCachePolicyKey    = "kRequestCachePolicyKey";
-static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
+static char const * const kLoadViewKey                  = "kLoadViewKey";
+static char const * const kDataTableViewKey             = "kDataTableViewKey";
+static char const * const kErrorAlertTipStringKey       = "kErrorAlertTipStringKey";
+static char const * const kTryRequestWhenFailCountkey   = "kTryRequestWhenFailCountkey";
+static char const * const kRequestCachePolicyKey        = "kRequestCachePolicyKey";
+static char const * const kIsCacheDataKey               = "kIsCacheDataKey";
 
 
 @implementation OKHttpRequestModel (OKExtension)
@@ -34,40 +34,39 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 
 #pragma mark - ========== 页面上有表格如果传此参数,请求完成后会帮你刷新页面,控制下拉刷新状态等 ==========
 
-- (void)setDataTableView:(UIScrollView *)dataTableView
+- (void)setDataTableView:(UITableView *)dataTableView
 {
     objc_setAssociatedObject(self, kDataTableViewKey, dataTableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (UIScrollView *)dataTableView
+- (UITableView *)dataTableView
 {
     return objc_getAssociatedObject(self, kDataTableViewKey);
 }
 
-#pragma mark - ========== 是否在底层提示失败信息 (默认提示) ==========
+#pragma mark - ========== 是否在底层提示失败信息 (默认不提示) ==========
 
-- (void)setForbidTipErrorInfo:(BOOL)forbidTipErrorInfo
+- (void)setErrorAlertTipString:(NSString *)errorAlertTipString
 {
-    objc_setAssociatedObject(self, kForbidTipErrorInfoKey, @(forbidTipErrorInfo), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kErrorAlertTipStringKey, errorAlertTipString, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)forbidTipErrorInfo
+- (NSString *)errorAlertTipString
 {
-    id value = objc_getAssociatedObject(self, kForbidTipErrorInfoKey);
-    return [value boolValue];
+    return objc_getAssociatedObject(self, kErrorAlertTipStringKey);
 }
 
-#pragma mark - ========== 是否在失败是尝试重新请求，(如果尝试则3次) ==========
+#pragma mark - ========== 在失败时尝试重新请求次数 ==========
 
-- (void)setAttemptRequestWhenFail:(BOOL)attemptRequestWhenFail
+- (void)setTryRequestWhenFailCount:(NSInteger)tryRequestWhenFailCount
 {
-    objc_setAssociatedObject(self, kAttemptRequestWhenFail, @(attemptRequestWhenFail), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kTryRequestWhenFailCountkey, @(tryRequestWhenFailCount), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)attemptRequestWhenFail
+- (NSInteger)tryRequestWhenFailCount
 {
-    id value = objc_getAssociatedObject(self, kAttemptRequestWhenFail);
-    return [value boolValue];
+    id value = objc_getAssociatedObject(self, kTryRequestWhenFailCountkey);
+    return [value integerValue];
 }
 
 #pragma mark - ========== 请求缓存策略 ==========
@@ -101,3 +100,4 @@ static char const * const kIsCacheDataKey           = "kIsCacheDataKey";
 }
 
 @end
+

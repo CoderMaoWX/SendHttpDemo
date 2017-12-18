@@ -1,6 +1,6 @@
 //
 //  OKHttpRequestModel+OKExtension.h
-//  okdeer-commonLibrary
+//  CommonFrameWork
 //
 //  Created by mao wangxin on 2016/12/22.
 //  Copyright © 2016年 okdeer. All rights reserved.
@@ -26,13 +26,13 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIView *loadView;
 
 /** 页面上有表格如果传此参数,请求完成后会自动刷新页面,控制表格下拉刷新状态, 请求失败,空数据等 会自动添加空白页 */
-@property (nonatomic, strong) UIScrollView *dataTableView;
+@property (nonatomic, strong) UITableView *dataTableView;
 
-/** 是否在底层提示失败信息 (默认提示) */
-@property (nonatomic, assign) BOOL forbidTipErrorInfo;
+/** 底层请求失败时，弹框提示信息 默认:不会提示 */
+@property (nonatomic, strong) NSString *errorAlertTipString;
 
-/** 是否在失败是尝试重新请求，(如果尝试则3次) */
-@property (nonatomic, assign) BOOL attemptRequestWhenFail;
+/** 在失败时尝试重新请求次数, 默认:0次*/
+@property (nonatomic, assign) NSInteger tryRequestWhenFailCount;
 
 /** 是否需要在底层缓存当前网络数据 */
 @property (nonatomic, assign) CCRequestCachePolicy requestCachePolicy;
@@ -41,3 +41,4 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL isCacheData;
 
 @end
+

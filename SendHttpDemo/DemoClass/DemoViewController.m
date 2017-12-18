@@ -14,6 +14,7 @@
 #import "OKHttpRequestTools+OKExtension.h"
 //发送普通请求用到
 #import "OKHttpRequestTools.h"
+#import <OKAlertView.h>
 
 //请求测试地址1
 #define TestRequestUrl1      @"http://api.cnez.info/product/getProductList/1"
@@ -72,7 +73,7 @@
 - (void)sendMultifunctionReq:(int)tag
 {
     OKHttpRequestModel *model = [[OKHttpRequestModel alloc] init];
-    model.requestType = HttpRequestTypeGET;
+    model.requestType = OKHttpRequestTypeGET;
     model.parameters = nil;
     model.requestUrl = TestRequestUrl2;
     
@@ -83,11 +84,11 @@
     
     NSURLSessionDataTask *task = [OKHttpRequestTools sendExtensionRequest:model success:^(id returnValue) {
         NSLog(@"不错哦, 请求成功了");
-        [MBProgressHUD showToastViewOnView:self.view text:@"请求成功,请查看打印日志"];
-        
+        ShowAlertToast(@"请求成功,请查看打印日志");
+
     } failure:^(NSError *error) {
         NSLog(@"悲剧哦, 请求失败了");
-        [MBProgressHUD showToastViewOnView:self.view text:@" 悲剧哦, 请求失败了"];
+        ShowAlertToast(@"悲剧哦, 请求失败了");
     }];
     
     NSLog(@"发送请求中===%zd===%@",tag,task);
@@ -103,17 +104,17 @@
 - (void)sendCommomReq
 {
     OKHttpRequestModel *model = [[OKHttpRequestModel alloc] init];
-    model.requestType = HttpRequestTypeGET;
+    model.requestType = OKHttpRequestTypeGET;
     model.parameters = nil;
     model.requestUrl = TestRequestUrl1;
     
     NSURLSessionDataTask *task = [OKHttpRequestTools sendOKRequest:model success:^(id returnValue) {
         NSLog(@"发送普通请求, 不错哦, 请求成功了");
-        [MBProgressHUD showToastViewOnView:self.view text:@"请求成功,请查看打印日志"];
-        
+        ShowAlertToast(@"请求成功,请查看打印日志");
+
     } failure:^(NSError *error) {
         NSLog(@"发送普通请求, 悲剧哦, 请求失败了");
-        [MBProgressHUD showToastViewOnView:self.view text:@" 悲剧哦, 请求失败了"];
+        ShowAlertToast(@"悲剧哦, 请求失败了");
     }];
     
     NSLog(@"测试发送普通请求===%@",task);

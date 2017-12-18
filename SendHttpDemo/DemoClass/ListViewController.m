@@ -82,7 +82,7 @@ static NSString * cellID = @"CollectionCellID";
     self.params = info;
     
     OKHttpRequestModel *model = [[OKHttpRequestModel alloc] init];
-    model.requestType = HttpRequestTypeGET;
+    model.requestType = OKHttpRequestTypeGET;
     model.parameters = info;
     model.requestUrl = kTestRequestUrl; //可以试着把地址写错,测试请求失败的场景
     

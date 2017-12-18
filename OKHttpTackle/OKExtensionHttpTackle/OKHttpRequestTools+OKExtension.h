@@ -1,6 +1,6 @@
 //
 //  CCHttpRequestTools+OKExtension.h
-//  okdeer-commonLibrary
+//  CommonFrameWork
 //
 //  Created by mao wangxin on 2016/12/22.
 //  Copyright © 2016年 okdeer. All rights reserved.
@@ -12,6 +12,7 @@
 
 /**
  * 此网络请求,底层封装解决的问题:
+ * << 需要设置(OKHttpRequestModel+OKExtension.h)中的扩赞属性以下功能才生效 >>
  *
  1.每个请求只需要设置loadView属性,即可添加请求时的转圈,和请求完成时取消转圈;
  2.每个请求只需要设置forbidTipErrorInfo属性,即可自动根据服务端code判断是否添加请求失败提示弹框
@@ -34,3 +35,4 @@
                                        success:(OKHttpSuccessBlock)successBlock
                                        failure:(OKHttpFailureBlock)failureBlock;
 @end
+
