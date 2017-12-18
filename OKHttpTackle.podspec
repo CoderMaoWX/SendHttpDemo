@@ -23,7 +23,7 @@ s.default_subspec 		= 'OKBaseHttpTackle','OKExtensionHttpTackle'
     end
 
 # 存放扩展类
-    extension_files = 'OKHttpTackle/OKExtensionHttpTackle/*.{h,m}'
+    extension_files = 'OKHttpTackle/OKExtensionHttpTackle/*.{h,m}','OKHttpTackle/OKBaseHttpTackle/*.{h,m}'
     s.subspec 'OKExtensionHttpTackle' do |ss|
         ss.source_files = extension_files
         ss.dependency "AFNetworking"
