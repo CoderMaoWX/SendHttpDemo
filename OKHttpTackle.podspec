@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         			= "OKHttpTackle"
-s.version      			= "0.0.2"
+s.version      			= "0.0.3"
 s.ios.deployment_target = '7.0'
 s.summary      			= "Multifunctional third party Library Based on AFNetworking package"
 s.homepage     			= "https://github.com/luocheng2013/SendHttpDemo"
