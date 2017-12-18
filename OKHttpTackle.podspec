@@ -9,8 +9,8 @@ s.author             	= { "luocheng" => "maowangxin_2013@163.com" }
 s.social_media_url  	= "http://www.jianshu.com/u/c4ac9f9adf58"
 s.source       			= { :git => "https://github.com/luocheng2013/SendHttpDemo.git", :tag => s.version }
 s.resource 	  		 	= "OKHttpTackle/OKHttpTackle.bundle"
-s.public_header_files 	= "OKHttpTackle/OKBaseHttpTackle/*.h","OKHttpTackle/OKExtensionHttpTackle/.*h"
-s.source_files  		= "OKHttpTackle/OKBaseHttpTackle/*.h","OKHttpTackle/OKExtensionHttpTackle/.*h"
+s.public_header_files 	= "OKHttpTackle/OKHttpTackle.h"
+s.source_files  		= "OKHttpTackle/OKHttpTackle.h"
 
 # 分模块存放
 s.default_subspec 		= 'OKBaseHttpTackle','OKExtensionHttpTackle'
